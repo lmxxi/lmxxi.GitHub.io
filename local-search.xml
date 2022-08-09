@@ -8,12 +8,12 @@
     <link href="/2022/04/25/%E6%B3%9B%E5%9E%8B/"/>
     <url>/2022/04/25/%E6%B3%9B%E5%9E%8B/</url>
     
-    <content type="html"><![CDATA[]]></content>
+    <content type="html"><![CDATA[<h2 id="泛型"><a href="#泛型" class="headerlink" title="泛型"></a>泛型</h2><h3 id="什么是泛型"><a href="#什么是泛型" class="headerlink" title="什么是泛型"></a>什么是泛型</h3><p>泛型起到一个模板的作用。对于只有数据类型不同的代码，如果没有泛型，就要针对每种类型重载一个方法，通过泛型，可以直接复用同一个方法。<br>泛型的类型在使用时指定，由编译器进行类型检查。</p>]]></content>
     
     
     <categories>
       
-      <category>面经 - java基础</category>
+      <category>面经</category>
       
     </categories>
     
@@ -38,7 +38,7 @@
     
     <categories>
       
-      <category>面经 - java基础</category>
+      <category>面经</category>
       
     </categories>
     
