@@ -24,7 +24,7 @@
 <meta property="og:description" content="语法基础基本数据类型整数型：byte（1字节）、short（2字节）、int（4字节）、long（8字节）浮点数：float（4字节）、double（8字节）字符型：char（2字节）布尔型：boolean（1字节）（注：使用long要在数字后面加上后缀L，否则当作int处理）   基本类型和包装类区别 成员变量包装类不赋值默认是null，基本类型不赋值默认是0   包装类可以用作泛型，基本类型不">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-04-22T16:00:00.000Z">
-<meta property="article:modified_time" content="2022-08-09T04:56:35.663Z">
+<meta property="article:modified_time" content="2022-08-09T04:59:05.833Z">
 <meta property="article:author" content="lmxxi">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -280,8 +280,8 @@
 <li>基本类型占用空间更小</li>
 </ol>
 <h3 id="包装类的缓存机制"><a href="#包装类的缓存机制" class="headerlink" title="包装类的缓存机制"></a>包装类的缓存机制</h3><p> Byte,Short,Integer,Long 这 4 种包装类默认创建了数值 [-128，127] 的相应类型的缓存数据，Character 创建了数值在 [0,127] 范围的缓存数据，Boolean 直接返回 True or False<br> 如果没有超出范围，则复用已有缓存对象，否则创建新对象</p>
-<h3 id="自动装箱和拆箱"><a href="#自动装箱和拆箱" class="headerlink" title="自动装箱和拆箱"></a>自动装箱和拆箱</h3><p>装箱：将基本类型用它们对应的引用类型包装起来；<br>&amp;emsp;Integer i &#x3D; 10 等价于 Integer i &#x3D; Integer.valueOf(10)<br>拆箱：将包装类型转换为基本数据类型；<br>&amp;emsp;int n &#x3D; i 等价于 int n &#x3D; i.intValue()</p>
-<h3 id="重载和重写"><a href="#重载和重写" class="headerlink" title="重载和重写"></a>重载和重写</h3><p><strong>重载：</strong> 存在与<strong>同一个类</strong>中，要求<mark>方法名相同，参数类型、个数、顺序至少有一个不同</mark>。<mark>（注：仅有方法返回类型不同不算重载）</mark><br><strong>重写：</strong> 针对<strong>父类和子类</strong>，子类对父类中的方法重新实现。要求：  </p>
+<h3 id="自动装箱和拆箱"><a href="#自动装箱和拆箱" class="headerlink" title="自动装箱和拆箱"></a>自动装箱和拆箱</h3><p>装箱：将基本类型用它们对应的引用类型包装起来；<br>&amp;emsp;<br>Integer i &#x3D; 10 等价于 Integer i &#x3D; Integer.valueOf(10)<br>拆箱：将包装类型转换为基本数据类型；<br>&amp;emsp;<br>int n &#x3D; i 等价于 int n &#x3D; i.intValue()</p>
+<h3 id="重载和重写"><a href="#重载和重写" class="headerlink" title="重载和重写"></a>重载和重写</h3><p><strong>重载：</strong> 存在与<strong>同一个类</strong>中，要求<mark>方法名<strong>相同</strong>，参数类型、个数、顺序<strong>至少有一个不同</strong></mark>。<mark>（注：仅有方法返回类型不同不算重载）</mark><br><strong>重写：</strong> 针对<strong>父类和子类</strong>，子类对父类中的方法重新实现。要求：  </p>
 <ol>
 <li>子类方法的<strong>访问权限</strong><mark>大于等于</mark>父类  </li>
 <li>子类方法的<strong>返回类型</strong><mark>小于等于</mark>父类</li>
