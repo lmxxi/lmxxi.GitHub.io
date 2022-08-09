@@ -13,6 +13,8 @@
     
     <categories>
       
+      <category>JAVA</category>
+      
       <category>面经</category>
       
       <category>Java基础</category>
@@ -22,7 +24,63 @@
     
     <tags>
       
-      <tag>java基础</tag>
+      <tag>面经</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>异常</title>
+    <link href="/2022/04/29/%E5%BC%82%E5%B8%B8/"/>
+    <url>/2022/04/29/%E5%BC%82%E5%B8%B8/</url>
+    
+    <content type="html"><![CDATA[<h2 id="异常"><a href="#异常" class="headerlink" title="异常"></a>异常</h2><h3 id="异常的层次结构"><a href="#异常的层次结构" class="headerlink" title="异常的层次结构"></a>异常的层次结构</h3><p><strong>Throwable</strong>是所有错误与异常的超类。<br>　<strong>Error：</strong> 程序无法处理的错误。<br>　<strong>Exception：</strong> 程序可以捕捉并处理的错误，分为<strong>运行时异常</strong>和<strong>编译时异常</strong>。<br>　<strong>RuntimeException及其子类</strong>统称为<strong>非受检查异常</strong>，常见的有：  </p><ol><li>NullPointerException(空指针错误)</li><li>IllegalArgumentException(参数错误)</li><li>ArrayIndexOutOfBoundsException（数组越界错误）</li><li>ClassCastException（类型转换错误）</li><li>SecurityException （安全错误比如权限不够）</li></ol><p>　　</p><p>　其他异常都属于<strong>受检查异常</strong>，常见的有：</p><ol><li>IO 相关的异常</li><li>ClassNotFoundException </li><li>SQLException</li></ol><h3 id="finally中的代码一定会运行吗"><a href="#finally中的代码一定会运行吗" class="headerlink" title="finally中的代码一定会运行吗"></a>finally中的代码一定会运行吗</h3><p>不一定。<br>如果执行finally之前虚拟机终止，或者线程死亡都不会执行finally</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>JAVA</category>
+      
+      <category>面经</category>
+      
+      <category>Java基础</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>面经</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>集合</title>
+    <link href="/2022/04/28/%E9%9B%86%E5%90%88/"/>
+    <url>/2022/04/28/%E9%9B%86%E5%90%88/</url>
+    
+    <content type="html"><![CDATA[]]></content>
+    
+    
+    <categories>
+      
+      <category>JAVA</category>
+      
+      <category>面经</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>面经</tag>
       
     </tags>
     
@@ -40,6 +98,8 @@
     
     <categories>
       
+      <category>JAVA</category>
+      
       <category>面经</category>
       
       <category>Java基础</category>
@@ -49,7 +109,7 @@
     
     <tags>
       
-      <tag>java基础</tag>
+      <tag>面经</tag>
       
     </tags>
     
@@ -67,6 +127,8 @@
     
     <categories>
       
+      <category>JAVA</category>
+      
       <category>面经</category>
       
       <category>Java基础</category>
@@ -76,7 +138,7 @@
     
     <tags>
       
-      <tag>java基础</tag>
+      <tag>面经</tag>
       
     </tags>
     
@@ -94,6 +156,8 @@
     
     <categories>
       
+      <category>JAVA</category>
+      
       <category>面经</category>
       
       <category>Java基础</category>
@@ -103,7 +167,7 @@
     
     <tags>
       
-      <tag>java基础</tag>
+      <tag>面经</tag>
       
     </tags>
     
