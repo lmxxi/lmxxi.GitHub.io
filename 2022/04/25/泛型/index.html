@@ -16,15 +16,15 @@
   <meta name="author" content="lmxxi">
   <meta name="keywords" content="">
   
-    <meta name="description" content="泛型什么是泛型泛型起到一个模板的作用。对于只有数据类型不同的代码，如果没有泛型，就要针对每种类型重载一个方法，通过泛型，可以直接复用同一个方法。泛型的类型在使用时指定，由编译器进行类型检查。">
+    <meta name="description" content="泛型什么是泛型泛型起到一个模板的作用。对于只有数据类型不同的代码，如果没有泛型，就要针对每种类型重载一个方法，通过泛型，可以直接复用同一个方法。泛型的类型在使用时指定，由编译器进行类型检查。 泛型使用方式泛型类、泛型接口、泛型方法 如何理解java中的泛型是伪泛型伪泛型指语法上支持泛型，但在编译阶段会进行类型擦除，将所有的泛型替换为具体类型。类型擦除原则：如果类型参数没有限制，则替换为Object">
 <meta property="og:type" content="article">
 <meta property="og:title" content="泛型">
 <meta property="og:url" content="https://lmxxi.github.io/2022/04/25/%E6%B3%9B%E5%9E%8B/index.html">
 <meta property="og:site_name" content="Lmxxi">
-<meta property="og:description" content="泛型什么是泛型泛型起到一个模板的作用。对于只有数据类型不同的代码，如果没有泛型，就要针对每种类型重载一个方法，通过泛型，可以直接复用同一个方法。泛型的类型在使用时指定，由编译器进行类型检查。">
+<meta property="og:description" content="泛型什么是泛型泛型起到一个模板的作用。对于只有数据类型不同的代码，如果没有泛型，就要针对每种类型重载一个方法，通过泛型，可以直接复用同一个方法。泛型的类型在使用时指定，由编译器进行类型检查。 泛型使用方式泛型类、泛型接口、泛型方法 如何理解java中的泛型是伪泛型伪泛型指语法上支持泛型，但在编译阶段会进行类型擦除，将所有的泛型替换为具体类型。类型擦除原则：如果类型参数没有限制，则替换为Object">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-04-25T05:11:34.000Z">
-<meta property="article:modified_time" content="2022-08-09T06:07:54.208Z">
+<meta property="article:modified_time" content="2022-08-09T06:33:22.446Z">
 <meta property="article:author" content="lmxxi">
 <meta property="article:tag" content="学习">
 <meta name="twitter:card" content="summary_large_image">
@@ -219,7 +219,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          95 字
+          1.4k 字
         
       </span>
     
@@ -230,7 +230,7 @@
         
         
         
-          1 分钟
+          12 分钟
         
       </span>
     
@@ -274,6 +274,15 @@
               <div class="markdown-body">
                 
                 <h2 id="泛型"><a href="#泛型" class="headerlink" title="泛型"></a>泛型</h2><h3 id="什么是泛型"><a href="#什么是泛型" class="headerlink" title="什么是泛型"></a>什么是泛型</h3><p>泛型起到一个模板的作用。对于只有数据类型不同的代码，如果没有泛型，就要针对每种类型重载一个方法，通过泛型，可以直接复用同一个方法。<br>泛型的类型在使用时指定，由编译器进行类型检查。</p>
+<h3 id="泛型使用方式"><a href="#泛型使用方式" class="headerlink" title="泛型使用方式"></a>泛型使用方式</h3><p>泛型类、泛型接口、泛型方法</p>
+<h3 id="如何理解java中的泛型是伪泛型"><a href="#如何理解java中的泛型是伪泛型" class="headerlink" title="如何理解java中的泛型是伪泛型"></a>如何理解java中的泛型是伪泛型</h3><p>伪泛型指语法上支持泛型，但在编译阶段会进行<strong>类型擦除</strong>，将所有的泛型替换为具体类型。<br>类型擦除原则：如果类型参数没有限制，则替换为<strong>Object</strong>，存在上界时，如&lt;T extends Number&gt;则替换成<strong>Number</strong>，存在下界时如&lt;T super Number&gt;，则替换成<strong>Object</strong>。</p>
+<h3 id="如何理解泛型的编译器检查"><a href="#如何理解泛型的编译器检查" class="headerlink" title="如何理解泛型的编译器检查"></a>如何理解泛型的编译器检查</h3><p>编译器会<strong>先检查类型</strong>，再进行<strong>类型擦除</strong>，再<strong>编译</strong>。<br>类型检查针对<strong>引用</strong>，而无关它真正引用的对象。<br>例如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Test</span> &#123;  <br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;  <br><br>        ArrayList&lt;String&gt; list1 = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>();  <br>        list1.add(<span class="hljs-string">&quot;1&quot;</span>); <span class="hljs-comment">//编译通过  </span><br>        list1.add(<span class="hljs-number">1</span>); <span class="hljs-comment">//编译错误  </span><br>        <span class="hljs-type">String</span> <span class="hljs-variable">str1</span> <span class="hljs-operator">=</span> list1.get(<span class="hljs-number">0</span>); <span class="hljs-comment">//返回类型就是String  </span><br><br>        <span class="hljs-type">ArrayList</span> <span class="hljs-variable">list2</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>&lt;String&gt;();  <br>        list2.add(<span class="hljs-string">&quot;1&quot;</span>); <span class="hljs-comment">//编译通过  </span><br>        list2.add(<span class="hljs-number">1</span>); <span class="hljs-comment">//编译通过  </span><br>        <span class="hljs-type">Object</span> <span class="hljs-variable">object</span> <span class="hljs-operator">=</span> list2.get(<span class="hljs-number">0</span>); <span class="hljs-comment">//返回类型就是Object  </span><br><br>        <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>&lt;String&gt;().add(<span class="hljs-string">&quot;11&quot;</span>); <span class="hljs-comment">//编译通过  </span><br>        <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>&lt;String&gt;().add(<span class="hljs-number">22</span>); <span class="hljs-comment">//编译错误  </span><br><br>        <span class="hljs-type">String</span> <span class="hljs-variable">str2</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>&lt;String&gt;().get(<span class="hljs-number">0</span>); <span class="hljs-comment">//返回类型就是String  </span><br>    &#125;  <br>&#125; <br></code></pre></td></tr></table></figure>
+
+<h3 id="如何理解泛型的多态？泛型的桥方法？"><a href="#如何理解泛型的多态？泛型的桥方法？" class="headerlink" title="如何理解泛型的多态？泛型的桥方法？"></a>如何理解泛型的多态？泛型的桥方法？</h3><p>当子类继承泛型父类时，可能只希望继承某一个具体类型的父类，于是重写了父类对应具体类型参数的父类方法，但由于<mark>类型擦除</mark>，父类再编译阶段会替换成Object类，父类方法类型也变成Object类型，导致子类方法和父类方法不一样，重写变成了重载。<br>针对这个问题，JVM会为子类自动生成一个<mark>桥方法</mark>，桥方法和父类方法一致，<mark>在桥方法内部，会调用子类中自己重写的方法，也就是说，实际覆盖父类的是桥方法。</mark><br>（注：子类中的桥方法和自己重写的方法同时存在，如果只有方法类型不同，是无法辨别的，该如何处理呢？针对这个问题，我们自己写的代码是无法通过编译的，但编译器为了实现泛型的多态允许自己这样做，然后交给虚拟机区分，虚拟机可以根据参数类型和返回类型确定一个方法。）</p>
+<h3 id="为什么基本类型不能作为泛型"><a href="#为什么基本类型不能作为泛型" class="headerlink" title="为什么基本类型不能作为泛型"></a>为什么基本类型不能作为泛型</h3><p>类型擦除后原始类型会变为Object，但Object不能存基本类型</p>
+<h3 id="为什么泛型不能实例化"><a href="#为什么泛型不能实例化" class="headerlink" title="为什么泛型不能实例化"></a>为什么泛型不能实例化</h3><p>因为在编译器没办法确定泛型参数化类型，也就找不到具体的类字节码文件，无法完成类加载。<br>（如果非要用泛型实例化可以通过反射实现）</p>
+<h3 id="泛型类可以定义泛型类型的静态变量吗"><a href="#泛型类可以定义泛型类型的静态变量吗" class="headerlink" title="泛型类可以定义泛型类型的静态变量吗"></a>泛型类可以定义泛型类型的静态变量吗</h3><p>不可以。因为泛型类型要在定义对象时指定，而静态变量不需要使用对象来调用，创建静态变量时无法确定其类型。</p>
 
                 
               </div>
