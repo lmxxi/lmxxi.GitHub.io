@@ -24,7 +24,7 @@
 <meta property="og:description" content="语法基础基本数据类型整数型：byte（1字节）、short（2字节）、int（4字节）、long（8字节）浮点数：float（4字节）、double（8字节）字符型：char（2字节）布尔型：boolean（1字节）（注：使用long要在数字后面加上后缀L，否则当作int处理）   基本类型和包装类区别 成员变量包装类不赋值默认是null，基本类型不赋值默认是0   包装类可以用作泛型，基本类型不">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-04-22T16:00:00.000Z">
-<meta property="article:modified_time" content="2022-08-09T07:16:17.813Z">
+<meta property="article:modified_time" content="2022-08-09T09:05:40.862Z">
 <meta property="article:author" content="lmxxi">
 <meta property="article:tag" content="java基础">
 <meta name="twitter:card" content="summary_large_image">
@@ -219,7 +219,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          3k 字
+          3.2k 字
         
       </span>
     
@@ -230,7 +230,7 @@
         
         
         
-          25 分钟
+          27 分钟
         
       </span>
     
@@ -314,6 +314,7 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">byte</span> <span class="hljs-variable">a</span> <span class="hljs-operator">=</span> <span class="hljs-number">127</span>;<br><span class="hljs-type">byte</span> <span class="hljs-variable">b</span> <span class="hljs-operator">=</span> <span class="hljs-number">127</span>;<br>b = a + b; <span class="hljs-comment">// error : cannot convert from int to byte</span><br>b += a; <span class="hljs-comment">// ok</span><br></code></pre></td></tr></table></figure>
 <p><mark>a+b操作会将a和b提升到int，所以将int类型赋值给byte就会报错</mark></p>
 <h3 id="char变量能不能存汉字"><a href="#char变量能不能存汉字" class="headerlink" title="char变量能不能存汉字"></a>char变量能不能存汉字</h3><p>可以。Java中char采用Unicode编码集，占2个字节，一个汉字也是2字节，所以可以存储。</p>
+<h3 id="静态方法和静态属性可以被继承和重写吗"><a href="#静态方法和静态属性可以被继承和重写吗" class="headerlink" title="静态方法和静态属性可以被继承和重写吗"></a>静态方法和静态属性可以被继承和重写吗</h3><p>可以被继承。在子类中会被 <strong>“隐藏”</strong>。<br>static方法不能被重写，即便写法上是重写，但是并不具备<strong>多态</strong>的含义。static方法是属于类的，不属于任何对象，即便具体对象所声明的引用对象调用了static方法，实际执行的也是<strong>引用对象类型对应的类里的方法</strong>。<br>因为多态是通过父类引用指向子类对象，调用重写方法时子类方法有更高的优先级，所以调用子类方法，但隐藏方法和属性不参与比较。</p>
 
                 
               </div>
