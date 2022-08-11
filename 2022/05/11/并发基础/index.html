@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://lmxxi.github.io/2022/05/11/%E5%B9%B6%E5%8F%91%E5%9F%BA%E7%A1%80/%E7%BA%BF%E7%A8%8B%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F.png">
 <meta property="article:published_time" content="2022-05-11T08:39:40.000Z">
-<meta property="article:modified_time" content="2022-08-11T11:33:13.966Z">
+<meta property="article:modified_time" content="2022-08-11T12:08:47.255Z">
 <meta property="article:author" content="lmxxi">
 <meta property="article:tag" content="面经">
 <meta name="twitter:card" content="summary_large_image">
@@ -221,7 +221,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.9k 字
+          3.3k 字
         
       </span>
     
@@ -232,7 +232,7 @@
         
         
         
-          25 分钟
+          28 分钟
         
       </span>
     
@@ -304,6 +304,17 @@
 <ol>
 <li>如果一个操作 happens-before 另一个操作，那么第一个操作的执行结果将对第二个操作可见，并且第一个操作的执行顺序排在第二个操作之前。</li>
 <li>如果重排序之后的执行结果，与按 happens-before 关系来执行的结果一致，那么 JMM 也允许这样的重排序。</li>
+</ol>
+<p>happens-before原则：</p>
+<ol>
+<li>程序顺序规则 ：一个线程内，按照代码顺序，书写在前面的操作 happens-before 于书写在后面的操作；</li>
+<li>解锁规则 ：对一个锁的解锁操作 Happens-Before于后续对这个锁的加锁操作；</li>
+<li>volatile 变量规则 ：对一个 volatile 变量的写操作 happens-before 于后面对这个 volatile 变量的读操作。</li>
+<li>线程启动规则：Thread 对象的 start（）方法 happens-before 于此线程的每一个动作。</li>
+<li>传递规则 ：如果 A happens-before B，且 B happens-before C，那么 A happens-before C；</li>
+<li>线程终结规则：线程中的所有操作都先行发生于对此线程的终止检测；</li>
+<li>线程中断规则：对线程 interrupt() 方法的调用先行发生于被中断线程的代码检测到中断事件的发生；</li>
+<li>对象终结规则：一个对象的初始化完成（构造函数执行结束）先行发生于它的 finalize() 方法的开始。</li>
 </ol>
 <h2 id="Synchronized"><a href="#Synchronized" class="headerlink" title="Synchronized"></a>Synchronized</h2><h3 id="synchronized如何使用"><a href="#synchronized如何使用" class="headerlink" title="synchronized如何使用"></a>synchronized如何使用</h3><ol>
 <li>修饰静态方法：获得类的锁</li>
