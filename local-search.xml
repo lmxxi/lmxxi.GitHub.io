@@ -8,9 +8,25 @@
     <link href="/2022/08/11/JUC/"/>
     <url>/2022/08/11/JUC/</url>
     
-    <content type="html"><![CDATA[]]></content>
+    <content type="html"><![CDATA[<h2 id="JUC"><a href="#JUC" class="headerlink" title="JUC"></a>JUC</h2><h3 id="JUC框架包含哪些部分"><a href="#JUC框架包含哪些部分" class="headerlink" title="JUC框架包含哪些部分"></a>JUC框架包含哪些部分</h3><ol><li>Lock框架和工具类：AQS、LockSupport、ReentrantLock、ReadWriteLock、工具类（Semaphore、CountdownLatch、CylicBarrier)</li><li>并发集合: ConcurrentHashMap、CopyOnWriteArrayList、ConcurrentLinkedQueue、BlockingQueue</li><li>原子类</li><li>线程池</li></ol><h2 id="原子类"><a href="#原子类" class="headerlink" title="原子类"></a>原子类</h2><h3 id="对Unsafe类的理解"><a href="#对Unsafe类的理解" class="headerlink" title="对Unsafe类的理解"></a>对Unsafe类的理解</h3><p>Unsafe类，主要提供一些用于底层操作的方法，如内存访问、内存管理等，使Java拥有直接操作内存的功能，同时也增加了不安全。<br>Unsafe提供的API大致可分为内存操作、CAS、Class相关、对象操作、线程调度、系统信息获取、内存屏障、数组操作等几类。</p><h3 id="CAS原理"><a href="#CAS原理" class="headerlink" title="CAS原理"></a>CAS原理</h3><p>通过 <strong>Atomic::cmpxchg</strong> 来实现比较和替换操作。如果是多处理器，为cmpxchg指令添加lock前缀。反之，就省略lock前缀。这里的lock前缀就是使用了处理器的总线锁(最新的处理器都使用缓存锁代替总线锁来提高性能)。</p><h3 id="原子类有哪些"><a href="#原子类有哪些" class="headerlink" title="原子类有哪些"></a>原子类有哪些</h3><ol><li>基本类型原子类：</li></ol><ul><li>AtomicInteger：整型原子类 </li><li>AtomicLong：长整型原子类</li><li>AtomicBoolean ：布尔型原子类</li></ul><ol start="2"><li>数组类型原子类：</li></ol><ul><li>AtomicIntegerArray：整型数组原子类</li><li>AtomicLongArray：长整型数组原子类</li><li>AtomicReferenceArray ：引用类型数组原子类</li></ul><ol start="3"><li>引用类型原子类：</li></ol><ul><li>AtomicReference：引用类型原子类</li><li>AtomicMarkableReference：原子更新带有标记的引用类型。标记是否被更改。</li><li>AtomicStampedReference ：原子更新带有版本号的引用类型。该类将整数值与引用关联起来，可用于解决原子的更新数据和数据的版本号，可以解决使用 CAS 进行原子更新时可能出现的 ABA 问题。</li></ul><ol start="4"><li>对象的属性修改类型原子类</li></ol><ul><li>AtomicIntegerFieldUpdater:原子更新整型字段的更新器</li><li>AtomicLongFieldUpdater：原子更新长整型字段的更新器</li><li>AtomicReferenceFieldUpdater：原子更新引用类型里的字段</li></ul><h3 id="原子类原理"><a href="#原子类原理" class="headerlink" title="原子类原理"></a>原子类原理</h3><p>CAS + volatile</p>]]></content>
     
     
+    <categories>
+      
+      <category>JAVA</category>
+      
+      <category>面经</category>
+      
+      <category>并发</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>面经</tag>
+      
+    </tags>
     
   </entry>
   
