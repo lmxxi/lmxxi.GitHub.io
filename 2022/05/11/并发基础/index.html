@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://lmxxi.github.io/2022/05/11/%E5%B9%B6%E5%8F%91%E5%9F%BA%E7%A1%80/%E7%BA%BF%E7%A8%8B%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F.png">
 <meta property="article:published_time" content="2022-05-11T08:39:40.000Z">
-<meta property="article:modified_time" content="2022-08-11T11:06:29.076Z">
+<meta property="article:modified_time" content="2022-08-11T11:33:13.966Z">
 <meta property="article:author" content="lmxxi">
 <meta property="article:tag" content="面经">
 <meta name="twitter:card" content="summary_large_image">
@@ -221,7 +221,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.3k 字
+          2.9k 字
         
       </span>
     
@@ -232,7 +232,7 @@
         
         
         
-          20 分钟
+          25 分钟
         
       </span>
     
@@ -298,6 +298,13 @@
 <li><strong>可重入锁</strong>和<strong>不可重入锁</strong><br>可重入锁：同一个线程如果已经获得了外部方法的锁，再进入内层方法会自动获得锁（前提是锁是同一个对象），避免死循环</li>
 <li><strong>排他锁</strong>和<strong>共享锁</strong><br>读读共享、其他都互斥</li>
 </ol>
+<h2 id="JMM"><a href="#JMM" class="headerlink" title="JMM"></a>JMM</h2><p>参考链接：<a target="_blank" rel="noopener" href="https://javaguide.cn/java/concurrent/jmm.html#%E4%BB%8E-cpu-%E7%BC%93%E5%AD%98%E6%A8%A1%E5%9E%8B%E8%AF%B4%E8%B5%B7">https://javaguide.cn/java/concurrent/jmm.html#%E4%BB%8E-cpu-%E7%BC%93%E5%AD%98%E6%A8%A1%E5%9E%8B%E8%AF%B4%E8%B5%B7</a></p>
+<h3 id="什么是Java内存模型"><a href="#什么是Java内存模型" class="headerlink" title="什么是Java内存模型"></a>什么是Java内存模型</h3><p>JMM是为了屏蔽不同操作系统内存模型差异提出的一组<strong>规范</strong>。JMM<strong>抽象了线程和内存之间的关系</strong>，同时<strong>规定了从源代码到CPU执行指令这个过程中要遵守的规则</strong>，目的是简化多线程编程。JMM主要围绕<strong>原子性、可见性、有序性</strong>。<br>JMM规定所有的变量都存在<strong>主内存</strong>中，同时每个线程都有一个<strong>本地内存</strong>存放共享变量的<strong>副本</strong>，所有修改都在本地内存中进行，每个线程只能访问自己的本地内存。</p>
+<h3 id="什么是happens-before原则"><a href="#什么是happens-before原则" class="headerlink" title="什么是happens-before原则"></a>什么是happens-before原则</h3><p>happens-before原则描述两个操作之间的内存可见性。它是JMM底层规则的抽象总结，便于程序员理解，通过happens-before原则可以简单地判断线程安全。<br>定义：</p>
+<ol>
+<li>如果一个操作 happens-before 另一个操作，那么第一个操作的执行结果将对第二个操作可见，并且第一个操作的执行顺序排在第二个操作之前。</li>
+<li>如果重排序之后的执行结果，与按 happens-before 关系来执行的结果一致，那么 JMM 也允许这样的重排序。</li>
+</ol>
 <h2 id="Synchronized"><a href="#Synchronized" class="headerlink" title="Synchronized"></a>Synchronized</h2><h3 id="synchronized如何使用"><a href="#synchronized如何使用" class="headerlink" title="synchronized如何使用"></a>synchronized如何使用</h3><ol>
 <li>修饰静态方法：获得类的锁</li>
 <li>修饰普通方法：获得对象的锁</li>
@@ -318,7 +325,7 @@
 <li>防止指令重排序，保证<strong>有序性</strong>  </li>
 <li>保证变量<strong>可见性</strong></li>
 </ol>
-<h3 id="什么是指令重排序"><a href="#什么是指令重排序" class="headerlink" title="什么是指令重排序"></a>什么是指令重排序</h3><p>在执行程序时为了提高性能，编译器和处理器会对指令进行重排序。<br>编译重排序：在编译阶段调整指令顺序，提高效率。<br>处理器重排序：由于处理器并行执行指令出现指令的重排序</p>
+<h3 id="什么是指令重排序"><a href="#什么是指令重排序" class="headerlink" title="什么是指令重排序"></a>什么是指令重排序</h3><p>在执行程序时为了提高性能，编译器和处理器会对指令进行重排序。<br>编译重排序：在不改变单线程程序语义的条件下，调整指令顺序，提高效率。<br>处理器重排序：由于处理器并行执行指令出现指令的重排序</p>
 <h3 id="as-if-serial原则"><a href="#as-if-serial原则" class="headerlink" title="as-if-serial原则"></a>as-if-serial原则</h3><p>无论怎么重排序，单线程程序的执行结果不能改变。</p>
 <h3 id="防止指令重排序原理"><a href="#防止指令重排序原理" class="headerlink" title="防止指令重排序原理"></a>防止指令重排序原理</h3><p><strong>内存屏障。</strong> 内存屏障作用包括：1.禁止内存屏障前后的指令重排序；2.强制将变量写到主存，并使其他线程缓存中对应变量失效，强制到主存中读取。<br>写volatile变量时，JVM会在写之前插入<strong>storestore屏障</strong>，保证之前的写操作执行完毕，在写之后插入<strong>storeload屏障</strong>，保证写入对后面的读操作可见。<br>读volatile变量时，会在读后面插入<strong>loadload屏障</strong>和<strong>loadstore屏障</strong>，保证在后面的操作前已经读完。</p>
 <h3 id="如何保证变量可见性"><a href="#如何保证变量可见性" class="headerlink" title="如何保证变量可见性"></a>如何保证变量可见性</h3><p>当写volatile变量时，在字节码前加上一个<strong>lock前缀</strong>（本质是内存屏障），将缓存数据写回主存，同时使其他cpu中该地址数据无效，其他线程读取变量时就需要到主存中读，这样读取到的就是最新值。</p>
@@ -431,6 +438,12 @@
                 <div class="post-prevnext my-3">
                   <article class="post-prev col-6">
                     
+                    
+                      <a href="/2022/08/11/JUC/" title="JUC">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">JUC</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
                     
                   </article>
                   <article class="post-next col-6">
