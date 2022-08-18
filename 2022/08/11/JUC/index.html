@@ -26,7 +26,7 @@
 <meta property="og:image" content="https://lmxxi.github.io/JUC/%E5%8A%A0%E9%94%81%E8%A7%A3%E9%94%81.png">
 <meta property="og:image" content="https://lmxxi.github.io/JUC/shouldparkafterfailedacquire.png">
 <meta property="article:published_time" content="2022-08-11T11:07:07.000Z">
-<meta property="article:modified_time" content="2022-08-18T15:52:50.604Z">
+<meta property="article:modified_time" content="2022-08-18T15:57:43.328Z">
 <meta property="article:author" content="lmxxi">
 <meta property="article:tag" content="面经">
 <meta name="twitter:card" content="summary_large_image">
@@ -222,7 +222,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          4.3k 字
+          4.5k 字
         
       </span>
     
@@ -233,7 +233,7 @@
         
         
         
-          36 分钟
+          38 分钟
         
       </span>
     
@@ -354,7 +354,14 @@
 <li>判断一个节点是否要被阻塞要看前置节点的状态是否为SIGNAL</li>
 </ul>
 <p>所以设置成双向链表会更方便获取到前置节点的状态</p>
-<h2 id="ReentrantLock"><a href="#ReentrantLock" class="headerlink" title="ReentrantLock"></a>ReentrantLock</h2><h3 id="ReentrantLock的内部实现"><a href="#ReentrantLock的内部实现" class="headerlink" title="ReentrantLock的内部实现"></a>ReentrantLock的内部实现</h3><p>ReentrantLock有三个内部类，<strong>Sync、FairSync、NonFairSync</strong>，Sync类继承了AQS抽象类，FairSync和NonFairSync继承了Sync类。<br>ReentrantLock可以选择公平锁和非公平锁（默认非公平锁）。<br>非公平锁和公平锁区别：</p>
+<h2 id="ReentrantLock"><a href="#ReentrantLock" class="headerlink" title="ReentrantLock"></a>ReentrantLock</h2><h3 id="ReentranLock和Synchronized的区别"><a href="#ReentranLock和Synchronized的区别" class="headerlink" title="ReentranLock和Synchronized的区别"></a>ReentranLock和Synchronized的区别</h3><ul>
+<li>Synchronized是关键字，ReentrantLock是JUC包下的工具类；</li>
+<li>Synchronized只支持非公平锁，ReentranLock支持公平锁和非公平锁；</li>
+<li>Synchronized和ReentranLock都是可重入锁</li>
+<li>ReentrantLock可以和Condition一起使用，实现选择性通知，更加灵活；</li>
+<li>ReentrantLock提供了等待可中断机制，通过 lock.lockInterruptibly()可以使正在等待的线程放弃等待</li>
+</ul>
+<h3 id="ReentrantLock的内部实现"><a href="#ReentrantLock的内部实现" class="headerlink" title="ReentrantLock的内部实现"></a>ReentrantLock的内部实现</h3><p>ReentrantLock有三个内部类，<strong>Sync、FairSync、NonFairSync</strong>，Sync类继承了AQS抽象类，FairSync和NonFairSync继承了Sync类。<br>ReentrantLock可以选择公平锁和非公平锁（默认非公平锁）。<br>非公平锁和公平锁区别：</p>
 <ul>
 <li>非公平锁在调用 lock 后，首先就会调用 CAS 进行一次抢锁，如果这个时候恰巧锁没有被占用，那么直接就获取到锁返回了。</li>
 <li>非公平锁在 CAS 失败后，和公平锁一样都会进入到 tryAcquire 方法，在 tryAcquire 方法中，如果发现锁这个时候被释放了（state &#x3D;&#x3D; 0），非公平锁会直接 CAS 抢锁，但是公平锁会判断等待队列是否有线程处于等待状态，如果有则不去抢锁，乖乖排到后面。<br>公平锁和非公平锁就这两点区别，如果这两次 CAS 都不成功，那么后面非公平锁和公平锁是一样的，都要进入到阻塞队列等待唤醒。</li>
