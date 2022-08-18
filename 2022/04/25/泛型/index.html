@@ -16,15 +16,15 @@
   <meta name="author" content="lmxxi">
   <meta name="keywords" content="">
   
-    <meta name="description" content="泛型什么是泛型泛型起到一个模板的作用。对于只有数据类型不同的代码，如果没有泛型，就要针对每种类型重载一个方法，通过泛型，可以直接复用同一个方法。泛型的类型在使用时指定，由编译器进行类型检查。 泛型使用方式泛型类、泛型接口、泛型方法 如何理解java中的泛型是伪泛型伪泛型指语法上支持泛型，但在编译阶段会进行类型擦除，将所有的泛型替换为具体类型。类型擦除原则：如果类型参数没有限制，则替换为Object">
+    <meta name="description" content="泛型什么是泛型泛型起到一个模板的作用。对于只有数据类型不同的代码，如果没有泛型，就要针对每种类型重载一个方法，通过泛型，可以直接复用同一个方法。泛型的类型在使用时指定，由编译器进行类型检查，提升安全性。 泛型使用方式泛型类、泛型接口、泛型方法 如何理解java中的泛型是伪泛型伪泛型指语法上支持泛型，但在编译阶段会进行类型擦除，将所有的泛型替换为具体类型。类型擦除原则：如果类型参数没有限制，则替换为">
 <meta property="og:type" content="article">
 <meta property="og:title" content="泛型">
 <meta property="og:url" content="https://lmxxi.github.io/2022/04/25/%E6%B3%9B%E5%9E%8B/index.html">
 <meta property="og:site_name" content="Lmxxi">
-<meta property="og:description" content="泛型什么是泛型泛型起到一个模板的作用。对于只有数据类型不同的代码，如果没有泛型，就要针对每种类型重载一个方法，通过泛型，可以直接复用同一个方法。泛型的类型在使用时指定，由编译器进行类型检查。 泛型使用方式泛型类、泛型接口、泛型方法 如何理解java中的泛型是伪泛型伪泛型指语法上支持泛型，但在编译阶段会进行类型擦除，将所有的泛型替换为具体类型。类型擦除原则：如果类型参数没有限制，则替换为Object">
+<meta property="og:description" content="泛型什么是泛型泛型起到一个模板的作用。对于只有数据类型不同的代码，如果没有泛型，就要针对每种类型重载一个方法，通过泛型，可以直接复用同一个方法。泛型的类型在使用时指定，由编译器进行类型检查，提升安全性。 泛型使用方式泛型类、泛型接口、泛型方法 如何理解java中的泛型是伪泛型伪泛型指语法上支持泛型，但在编译阶段会进行类型擦除，将所有的泛型替换为具体类型。类型擦除原则：如果类型参数没有限制，则替换为">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-04-25T05:11:34.000Z">
-<meta property="article:modified_time" content="2022-08-09T13:59:41.793Z">
+<meta property="article:modified_time" content="2022-08-12T03:12:35.540Z">
 <meta property="article:author" content="lmxxi">
 <meta property="article:tag" content="面经">
 <meta name="twitter:card" content="summary_large_image">
@@ -273,7 +273,7 @@
             
               <div class="markdown-body">
                 
-                <h2 id="泛型"><a href="#泛型" class="headerlink" title="泛型"></a>泛型</h2><h3 id="什么是泛型"><a href="#什么是泛型" class="headerlink" title="什么是泛型"></a>什么是泛型</h3><p>泛型起到一个模板的作用。对于只有数据类型不同的代码，如果没有泛型，就要针对每种类型重载一个方法，通过泛型，可以直接复用同一个方法。<br>泛型的类型在使用时指定，由编译器进行类型检查。</p>
+                <h2 id="泛型"><a href="#泛型" class="headerlink" title="泛型"></a>泛型</h2><h3 id="什么是泛型"><a href="#什么是泛型" class="headerlink" title="什么是泛型"></a>什么是泛型</h3><p>泛型起到一个模板的作用。对于只有数据类型不同的代码，如果没有泛型，就要针对每种类型重载一个方法，通过泛型，可以直接复用同一个方法。<br>泛型的类型在使用时指定，由编译器进行类型检查，提升安全性。</p>
 <h3 id="泛型使用方式"><a href="#泛型使用方式" class="headerlink" title="泛型使用方式"></a>泛型使用方式</h3><p>泛型类、泛型接口、泛型方法</p>
 <h3 id="如何理解java中的泛型是伪泛型"><a href="#如何理解java中的泛型是伪泛型" class="headerlink" title="如何理解java中的泛型是伪泛型"></a>如何理解java中的泛型是伪泛型</h3><p>伪泛型指语法上支持泛型，但在编译阶段会进行<strong>类型擦除</strong>，将所有的泛型替换为具体类型。<br>类型擦除原则：如果类型参数没有限制，则替换为<strong>Object</strong>，存在上界时，如&lt;T extends Number&gt;则替换成<strong>Number</strong>，存在下界时如&lt;T super Number&gt;，则替换成<strong>Object</strong>。</p>
 <h3 id="如何理解泛型的编译器检查"><a href="#如何理解泛型的编译器检查" class="headerlink" title="如何理解泛型的编译器检查"></a>如何理解泛型的编译器检查</h3><p>编译器会<strong>先检查类型</strong>，再进行<strong>类型擦除</strong>，再<strong>编译</strong>。<br>类型检查针对<strong>引用</strong>，而无关它真正引用的对象。<br>例如：</p>
