@@ -16,22 +16,23 @@
   <meta name="author" content="lmxxi">
   <meta name="keywords" content="">
   
-    <meta name="description" content="Linux软链接和硬链接在 Linux 的文件系统中，保存在磁盘分区中的文件都分配一个编号，称为索引节点号(Inode Index)。硬链接： A 是 B 的硬链接（A 和 B 都是文件名），则 A 的目录项中的 inode 节点号与 B 的目录项中的 inode 节点号相同，即一个 inode 节点对应两个不同的文件名，两个文件名指向同一个文件，A 和 B 对文件系统来说是完全平等的。删除其中任">
+    <meta name="description" content="title: 并发集合类date: 2022-08-11 19:07:07tags:  面经categories: JAVA 面经 并发   并发集合框架  ConcurrentHashMap内部实现1.7：在对象中保存了一个Segment数组，即将整个Hash表划分为多个分段；而每个Segment元素，它通过继承 ReentrantLock来进行加锁，每次锁住的是一个 segment，segm">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Linux">
-<meta property="og:url" content="https://lmxxi.github.io/2022/08/13/Linux/index.html">
+<meta property="og:title" content="Lmxxi">
+<meta property="og:url" content="https://lmxxi.github.io/2022/08/19/%E5%B9%B6%E5%8F%91%E9%9B%86%E5%90%88%E7%B1%BB/index.html">
 <meta property="og:site_name" content="Lmxxi">
-<meta property="og:description" content="Linux软链接和硬链接在 Linux 的文件系统中，保存在磁盘分区中的文件都分配一个编号，称为索引节点号(Inode Index)。硬链接： A 是 B 的硬链接（A 和 B 都是文件名），则 A 的目录项中的 inode 节点号与 B 的目录项中的 inode 节点号相同，即一个 inode 节点对应两个不同的文件名，两个文件名指向同一个文件，A 和 B 对文件系统来说是完全平等的。删除其中任">
+<meta property="og:description" content="title: 并发集合类date: 2022-08-11 19:07:07tags:  面经categories: JAVA 面经 并发   并发集合框架  ConcurrentHashMap内部实现1.7：在对象中保存了一个Segment数组，即将整个Hash表划分为多个分段；而每个Segment元素，它通过继承 ReentrantLock来进行加锁，每次锁住的是一个 segment，segm">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-08-13T05:41:44.000Z">
-<meta property="article:modified_time" content="2022-08-13T16:14:26.808Z">
+<meta property="og:image" content="https://lmxxi.github.io/2022/08/19/%E5%B9%B6%E5%8F%91%E9%9B%86%E5%90%88%E7%B1%BB/%E5%B9%B6%E5%8F%91%E9%9B%86%E5%90%88%E6%A1%86%E6%9E%B6.png">
+<meta property="article:published_time" content="2022-08-19T08:22:21.016Z">
+<meta property="article:modified_time" content="2022-08-19T09:28:03.881Z">
 <meta property="article:author" content="lmxxi">
-<meta property="article:tag" content="JAVA">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://lmxxi.github.io/2022/08/19/%E5%B9%B6%E5%8F%91%E9%9B%86%E5%90%88%E7%B1%BB/%E5%B9%B6%E5%8F%91%E9%9B%86%E5%90%88%E6%A1%86%E6%9E%B6.png">
   
   
   
-  <title>Linux - Lmxxi</title>
+  <title>Lmxxi</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -196,7 +197,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="Linux"></span>
+            <span id="subtitle" data-typed-text=""></span>
           
         </div>
 
@@ -207,8 +208,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-08-13 13:41" pubdate>
-          2022年8月13日 下午
+        <time datetime="2022-08-19 16:22" pubdate>
+          2022年8月19日 下午
         </time>
       </span>
     
@@ -219,7 +220,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.4k 字
+          1.3k 字
         
       </span>
     
@@ -230,7 +231,7 @@
         
         
         
-          13 分钟
+          11 分钟
         
       </span>
     
@@ -268,30 +269,33 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">Linux</h1>
+            <h1 style="display: none"></h1>
             
             
               <div class="markdown-body">
                 
-                <h2 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h2><h3 id="软链接和硬链接"><a href="#软链接和硬链接" class="headerlink" title="软链接和硬链接"></a>软链接和硬链接</h3><p>在 Linux 的文件系统中，保存在磁盘分区中的文件都分配一个编号，称为索引节点号(Inode Index)。<br><strong>硬链接：</strong> A 是 B 的硬链接（A 和 B 都是文件名），则 A 的目录项中的 inode 节点号与 B 的目录项中的 inode 节点号相同，即一个 inode 节点对应两个不同的文件名，两个文件名指向同一个文件，A 和 B 对文件系统来说是完全平等的。删除其中任何一个都不会影响另外一个的访问。<br>硬连接的作用是允许一个文件拥有多个有效路径名，这样用户就可以建立硬连接到重要文件，以防止“误删”的功能。其原因如上所述，因为对应该目录的索引节点有一个以上的连接。只删除一个连接并不影响索引节点本身和其它的连接，只有当最后一个连接被删除后，文件的数据块及目录的连接才会被释放。也就是说，<strong>文件真正删除的条件是与之相关的所有硬连接文件均被删除。</strong><br><strong>软链接：</strong> 软链接文件有类似于 Windows 的快捷方式。它实际上是一个特殊的文件。比如：A 是 B 的软链接（A 和 B 都是文件名），A 的目录项中的 inode 节点号与 B 的目录项中的 inode 节点号不相同，A 和 B 指向的是两个不同的 inode，继而指向两块不同的数据块。但是 <strong>A 的数据块中存放的只是 B 的路径名</strong>（可以根据这个找到 B 的目录项）。A 和 B 之间是“主从”关系，如果 B 被删除了，A 仍然存在（因为两个是不同的文件），但指向的是一个无效的链接。<br>使用限制上，不能对目录创建硬链接，不能对不同文件系统创建硬链接，不能对不存在的文件创建硬链接；可以对目录创建软连接，可以跨文件系统创建软连接，可以对不存在的文件创建软连接。</p>
-<h3 id="如何查看某个端口号被哪个进程占用"><a href="#如何查看某个端口号被哪个进程占用" class="headerlink" title="如何查看某个端口号被哪个进程占用"></a>如何查看某个端口号被哪个进程占用</h3><ul>
-<li>lsof -i:端口号  </li>
-<li>netstat -anp | grep pid<br>查看所有端口：netstat -ntlp</li>
+                <hr>
+<p>title: 并发集合类<br>date: 2022-08-11 19:07:07<br>tags:</p>
+<ul>
+<li>面经<br>categories:</li>
+<li>JAVA</li>
+<li>面经</li>
+<li>并发</li>
 </ul>
-<h3 id="如何查看文件和目录大小"><a href="#如何查看文件和目录大小" class="headerlink" title="如何查看文件和目录大小"></a>如何查看文件和目录大小</h3><p>du -sh</p>
-<h3 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h3><p>ls: 列出当前目录下文件<br>cd: 切换目录<br>cp: 复制文件到指定目录<br>find: 查找文件<br>mkdir: 创建文件夹<br>mv: 移动文件到指定目录<br>rm: 删除文件或目录<br>cat: 查看文件<br>more: 分页查看文件<br>less: 分页查看文件，可以前后翻页、跳转、查找<br>tail: 显示文件最后几条记录<br>du: 查看磁盘空间使用情况<br>df: 查看文件系统磁盘使用情况<br>top: 实时监控当前系统正在执行的进程的相关信息<br>free: 查看系统内存情况<br>lsof: 用于查看你进程开打的文件，打开文件的进程，进程打开的端口<br>ps aux: 显示所有进程信息<br>ps -ef:显示所有进程信息<br>sed: 替换文件中的字符</p>
-<h3 id="cpu内存占用率很高如何排查"><a href="#cpu内存占用率很高如何排查" class="headerlink" title="cpu内存占用率很高如何排查"></a>cpu内存占用率很高如何排查</h3><ol>
-<li>通过<strong>top</strong>命令查看各个进程使用cpu情况，找到cpu使用率最高的进程  </li>
-<li>通过 <strong>top -Hp 进程id</strong>查看该进程下各个线程的cpu使用情况</li>
-<li>使用<strong>jstack 线程id</strong>命令查看当前进程的堆栈状态</li>
-<li>根据之前获得的cpu占用率较高的线程pid，将该pid转成16进制的值，在thread dump中每个线程都有一个nid，找到对应的nid即可；隔段时间再执行一次jstack命令获取thread dump，区分两份dump是否有差别，如果发现一直在执行某个方法，就可以检查对应的代码是否有问题。</li>
-</ol>
-<h3 id="内存占用过高如何排查"><a href="#内存占用过高如何排查" class="headerlink" title="内存占用过高如何排查"></a>内存占用过高如何排查</h3><ol>
-<li>通过<strong>top</strong>命令定位到内存占用过高的进程id</li>
-<li>使用<strong>jstat -gccause pid</strong>命令查看该进程的gc情况</li>
-<li>如果发现gc非常频繁，通过<strong>jmap</strong>命令查询进程实体类内存占用情况，检查哪个类的创建了过多的实体对象及内存泄漏情况</li>
-<li>如果没有上述问题，通过<strong>jmap -heap</strong>查看堆的各个分代的使用情况，如果发生频繁gc是因为堆的分代大小设置有问题，可以修改各个分代大小</li>
-</ol>
+<hr>
+<h2 id="并发集合框架"><a href="#并发集合框架" class="headerlink" title="并发集合框架"></a>并发集合框架</h2><img src="/2022/08/19/%E5%B9%B6%E5%8F%91%E9%9B%86%E5%90%88%E7%B1%BB/%E5%B9%B6%E5%8F%91%E9%9B%86%E5%90%88%E6%A1%86%E6%9E%B6.png" srcset="/img/loading.gif" lazyload class="" title="加锁解锁">
+
+<h2 id="ConcurrentHashMap"><a href="#ConcurrentHashMap" class="headerlink" title="ConcurrentHashMap"></a>ConcurrentHashMap</h2><h3 id="内部实现"><a href="#内部实现" class="headerlink" title="内部实现"></a>内部实现</h3><p>1.7：在对象中保存了一个Segment数组，即将整个Hash表划分为多个分段；而每个Segment元素，它通过继承 ReentrantLock来进行加锁，每次锁住的是一个 segment，<strong>segment数量默认是16</strong>。<br>1.8：<strong>数组+链表+红黑树。</strong> 加锁采用<strong>CAS+Synchronized</strong>实现</p>
+<h3 id="并发问题分析"><a href="#并发问题分析" class="headerlink" title="并发问题分析"></a>并发问题分析</h3><p>1.7：<br>put()操作：1.7使用头插法。如果put()和get()并发执行，get()发生在put()之前，不影响。如果get()发生在put()之后，通过**UNSAFE.putOrderedObject()**（相当于volatile写)保证头节点可见。<br>扩容：扩容先创建数组，然后迁移数据，最后将table设为newtable。如果get先行，就是在旧数组上操作，如果先扩容，table是由volatile修饰的，可以保证可见性。<br>remove()操作：如果get()已经过去了则没问题。如果remove()先行，判断操作的是不是头节点，如果是头节点，通过UNSAFE类操作保证可见性，如果不是头节点，要将被删除节点的后继节点接到前驱节点后面，next属性是volatile的，可以保证可见性。</p>
+<p>1.8：<br>put()操作：Node的val和next都是volatile的，所以get()可以获取最新值。<br>扩容：扩容通过两个链表保存节点，这两个链表中的节点是复制出来的，不影响原来链表，所以不影响get()操作。如果正在迁移的桶遇到put()&#x2F;remove()操作，则判断当前迁移是否完成，如果已经迁移完成，会将当前节点设为fwd节点，写线程会帮助扩容，如果未迁移完成，则头节点会被锁住，写线程阻塞。</p>
+<h3 id="ConcurrentHashMap什么时候用到CAS"><a href="#ConcurrentHashMap什么时候用到CAS" class="headerlink" title="ConcurrentHashMap什么时候用到CAS"></a>ConcurrentHashMap什么时候用到CAS</h3><p>put()时如果<strong>插入位置头节点为空</strong>，则用<strong>CAS+自旋</strong>赋值。</p>
+<h3 id="size-方法线程安全吗"><a href="#size-方法线程安全吗" class="headerlink" title="size()方法线程安全吗"></a>size()方法线程安全吗</h3><p>size()方法通过basecount(volatile修饰)和countcell类(包含一个volatile变量)计数。先用CAS对basecount加1，如果因并发失败，则创建一个countcell对象，计算size时将basecount和countcell对象数量加在一起得到总大小。<br>size()不加锁，当put()和size()同时发生可能出现统计不完全，故不是线程安全的。这样设计是为了不影响写入效率。</p>
+<h3 id="1-7和1-8除了数据结构还有什么区别"><a href="#1-7和1-8除了数据结构还有什么区别" class="headerlink" title="1.7和1.8除了数据结构还有什么区别"></a>1.7和1.8除了数据结构还有什么区别</h3><ul>
+<li>1.7使用ReentrantLock，1.8使用CAS+Synchronized</li>
+<li>1.7只针对每个Segment内部多线程扩容，1.8支持整个表</li>
+<li>技术统计：1.7put()时每个segment内部计数，统计时遍历每个segment加锁统计，1.8增加countcell类帮助计数</li>
+</ul>
+<h3 id="HashTable为什么慢"><a href="#HashTable为什么慢" class="headerlink" title="HashTable为什么慢"></a>HashTable为什么慢</h3><p>HashTable操作时通过Synchronized锁住整个表。</p>
 
                 
               </div>
@@ -300,41 +304,6 @@
             <div>
               <div class="post-metas my-3">
   
-    <div class="post-meta mr-3 d-flex align-items-center">
-      <i class="iconfont icon-category"></i>
-      
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/JAVA/" class="category-chain-item">JAVA</a>
-  
-  
-    <span>></span>
-    
-  <a href="/categories/JAVA/%E9%9D%A2%E7%BB%8F/" class="category-chain-item">面经</a>
-  
-  
-
-  
-
-      </span>
-    
-  
-</span>
-
-    </div>
-  
-  
-    <div class="post-meta">
-      <i class="iconfont icon-tags"></i>
-      
-        <a href="/tags/JAVA/">#JAVA</a>
-      
-    </div>
   
 </div>
 
@@ -344,8 +313,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>Linux</div>
-      <div>https://lmxxi.github.io/2022/08/13/Linux/</div>
+      <div></div>
+      <div>https://lmxxi.github.io/2022/08/19/并发集合类/</div>
     </div>
     <div class="license-meta">
       
@@ -357,7 +326,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2022年8月13日</div>
+          <div>2022年8月19日</div>
         </div>
       
       
@@ -387,18 +356,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/08/19/%E5%B9%B6%E5%8F%91%E9%9B%86%E5%90%88%E7%B1%BB/" title="">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile"></span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/08/11/JUC/" title="JUC">
-                        <span class="hidden-mobile">JUC</span>
+                      <a href="/2022/08/13/Linux/" title="Linux">
+                        <span class="hidden-mobile">Linux</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

@@ -25,8 +25,9 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://lmxxi.github.io/2022/08/11/JUC/%E5%8A%A0%E9%94%81%E8%A7%A3%E9%94%81.png">
 <meta property="og:image" content="https://lmxxi.github.io/2022/08/11/JUC/shouldparkafterfailedacquire.png">
+<meta property="og:image" content="https://lmxxi.github.io/2022/08/11/JUC/%E8%AF%BB%E5%86%99%E9%94%81.png">
 <meta property="article:published_time" content="2022-08-11T11:07:07.000Z">
-<meta property="article:modified_time" content="2022-08-18T16:05:27.631Z">
+<meta property="article:modified_time" content="2022-08-19T09:23:17.840Z">
 <meta property="article:author" content="lmxxi">
 <meta property="article:tag" content="面经">
 <meta name="twitter:card" content="summary_large_image">
@@ -222,7 +223,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          4.5k 字
+          5k 字
         
       </span>
     
@@ -233,7 +234,7 @@
         
         
         
-          38 分钟
+          42 分钟
         
       </span>
     
@@ -335,7 +336,8 @@
 <li><strong>wait()需要在synchronized或lock()中执行</strong>，避免多线程并发下notify()在wait()前执行，<strong>park()不需要，unpark()在park()前运行也可以；</strong></li>
 <li>Object.wait()方法声明抛出了中断异常，调用者需要捕获或者再抛出，LockSupport.park()不需要捕获中断异常；</li>
 </ul>
-<h2 id="AQS"><a href="#AQS" class="headerlink" title="AQS"></a>AQS</h2><h3 id="什么是AQS"><a href="#什么是AQS" class="headerlink" title="什么是AQS"></a>什么是AQS</h3><p>AQS的核心思想是，如果请求的资源空闲，就将当前申请资源的线程设为工作线程，并将共享资源设为锁定状态。如果被请求的资源被锁定，就需要一套等待机制及线程唤醒锁分配机制。这个机制通过CLH队列实现。<br>CLH队列是一个双向链表。<br>AQS使用volatile修饰的变量state表示锁的状态，通过CAS对其进行修改。</p>
+<h2 id="AQS"><a href="#AQS" class="headerlink" title="AQS"></a>AQS</h2><p>参考链接：<a target="_blank" rel="noopener" href="https://tech.meituan.com/2019/12/05/aqs-theory-and-apply.html">https://tech.meituan.com/2019/12/05/aqs-theory-and-apply.html</a></p>
+<h3 id="什么是AQS"><a href="#什么是AQS" class="headerlink" title="什么是AQS"></a>什么是AQS</h3><p>AQS的核心思想是，如果请求的资源空闲，就将当前申请资源的线程设为工作线程，并将共享资源设为锁定状态。如果被请求的资源被锁定，就需要一套等待机制及线程唤醒锁分配机制。这个机制通过CLH队列实现。<br>CLH队列是一个双向链表。<br>AQS使用volatile修饰的变量state表示锁的状态，通过CAS对其进行修改。</p>
 <h3 id="AQS对资源的共享方式"><a href="#AQS对资源的共享方式" class="headerlink" title="AQS对资源的共享方式"></a>AQS对资源的共享方式</h3><ul>
 <li>独占<br> <strong>ReentrantLock</strong>:支持公平锁和非公平锁。</li>
 <li>共享<br> <strong>Semaphore、CountDownLatch、 CyclicBarrier</strong></li>
@@ -369,6 +371,7 @@
 <h3 id="ReentrantLock加锁解锁过程"><a href="#ReentrantLock加锁解锁过程" class="headerlink" title="ReentrantLock加锁解锁过程"></a>ReentrantLock加锁解锁过程</h3><p>加锁解锁流程如下：</p>
 <img src="/2022/08/11/JUC/%E5%8A%A0%E9%94%81%E8%A7%A3%E9%94%81.png" srcset="/img/loading.gif" lazyload class="" title="加锁解锁">
 
+
 <p>加锁：</p>
 <ul>
 <li><p>通过ReentrantLock的加锁方法Lock进行加锁操作。</p>
@@ -396,6 +399,12 @@
 
 
 <h3 id="解锁过程"><a href="#解锁过程" class="headerlink" title="解锁过程"></a>解锁过程</h3><p>在release()方法中调用tryRelease()释放锁成功后，通过<strong>unparkSuccessor()</strong> 方法唤醒后继节点。如果当前节点的下个节点是null或者下个节点被cancelled，就<strong>从后向前</strong>找到第一个waitStatus&lt;0的节点并唤醒。<br>从后往前找是因为入队是非原子操作（入队时先将前向指针指向当前尾节点，然后CAS将新加入节点设置成尾节点，但此时pred.next&#x3D;node可能还没执行），此时如果从前往后遍历就是断的。同时产生CANCELLED节点也会断开next指针，可能无法遍历到所有节点，所以从后往前遍历。</p>
+<h2 id="ReentrantReadWriteLock"><a href="#ReentrantReadWriteLock" class="headerlink" title="ReentrantReadWriteLock"></a>ReentrantReadWriteLock</h2><h3 id="内部实现"><a href="#内部实现" class="headerlink" title="内部实现"></a>内部实现</h3><img src="/2022/08/11/JUC/%E8%AF%BB%E5%86%99%E9%94%81.png" srcset="/img/loading.gif" lazyload class="">
+
+<h3 id="什么是锁的升降级"><a href="#什么是锁的升降级" class="headerlink" title="什么是锁的升降级"></a>什么是锁的升降级</h3><p>锁降级是指把持住(当前拥有的)写锁，再获取到读锁，随后释放(先前拥有的)写锁的过程。</p>
+<p>主要是为了保证数据的可见性，如果当前线程不获取读锁而是直接释放写锁，假设此刻另一个线程(记作线程T)获取了写锁并修改了数据，那么当前线程无法感知线程T的数据更新。如果当前线程获取读锁，即遵循锁降级的步骤，则线程T将会被阻塞，直到当前线程使用数据并释放读锁之后，线程T才能获取写锁进行数据更新。</p>
+<h3 id="为什么不支持锁升级"><a href="#为什么不支持锁升级" class="headerlink" title="为什么不支持锁升级"></a>为什么不支持锁升级</h3><p>获取写锁之前，其他线程不能持有读锁。假设有两个线程都持有读锁，并且都想进行锁升级获得写锁，则两个线程都要等待对方释放读锁，造成死锁。</p>
+<h3 id="本地线程计数器ThreadLocalHoldCounter作用"><a href="#本地线程计数器ThreadLocalHoldCounter作用" class="headerlink" title="本地线程计数器ThreadLocalHoldCounter作用"></a>本地线程计数器ThreadLocalHoldCounter作用</h3><p>ThreadLocal的子类。每个线程用其与对象绑定，记录自己的重入次数。</p>
 
                 
               </div>
