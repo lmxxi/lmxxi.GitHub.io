@@ -16,24 +16,24 @@
   <meta name="author" content="lmxxi">
   <meta name="keywords" content="">
   
-    <meta name="description" content="集合    ListList有哪些集合类 ArrayList: Object[]数组 LinkedList: 双向链表 vector: Object[]数组，线程安全 CopyOnWriteArrayList：JUC并发集合，线程安全  ArrayList和Linkedlist区别 底层数据结构： ArrayList底层是Object数组，LinkedList底层是双向链表 随机访问： Array">
+    <meta name="description" content="使用线程池的好处 降低资源消耗：复用已有线程 提高响应速度：不需要等任务到达再创建线程 提高线程的可管理性：统一对线程进行分配、监控和管理  Executor框架由三部分组成：  任务（Runnable&#x2F;Callable) 执行器（Executor） 异步计算的结果（Future）  ThreadPoolExecutor类7个线程池参数 核心线程数 工作队列 最大线程数 线程存活时间 存">
 <meta property="og:type" content="article">
-<meta property="og:title" content="集合">
-<meta property="og:url" content="https://lmxxi.github.io/2022/04/28/%E9%9B%86%E5%90%88/index.html">
+<meta property="og:title" content="线程池">
+<meta property="og:url" content="https://lmxxi.github.io/2022/08/19/%E7%BA%BF%E7%A8%8B%E6%B1%A0/index.html">
 <meta property="og:site_name" content="Lmxxi">
-<meta property="og:description" content="集合    ListList有哪些集合类 ArrayList: Object[]数组 LinkedList: 双向链表 vector: Object[]数组，线程安全 CopyOnWriteArrayList：JUC并发集合，线程安全  ArrayList和Linkedlist区别 底层数据结构： ArrayList底层是Object数组，LinkedList底层是双向链表 随机访问： Array">
+<meta property="og:description" content="使用线程池的好处 降低资源消耗：复用已有线程 提高响应速度：不需要等任务到达再创建线程 提高线程的可管理性：统一对线程进行分配、监控和管理  Executor框架由三部分组成：  任务（Runnable&#x2F;Callable) 执行器（Executor） 异步计算的结果（Future）  ThreadPoolExecutor类7个线程池参数 核心线程数 工作队列 最大线程数 线程存活时间 存">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://lmxxi.github.io/2022/04/28/%E9%9B%86%E5%90%88/%E9%9B%86%E5%90%88.png">
-<meta property="article:published_time" content="2022-04-28T13:54:05.000Z">
-<meta property="article:modified_time" content="2022-08-19T12:50:24.446Z">
+<meta property="og:image" content="https://lmxxi.github.io/2022/08/19/%E7%BA%BF%E7%A8%8B%E6%B1%A0/%E7%BA%BF%E7%A8%8B%E6%B1%A0%E5%8E%9F%E7%90%86.png">
+<meta property="article:published_time" content="2022-08-19T11:46:25.000Z">
+<meta property="article:modified_time" content="2022-08-19T12:50:31.986Z">
 <meta property="article:author" content="lmxxi">
 <meta property="article:tag" content="面经">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://lmxxi.github.io/2022/04/28/%E9%9B%86%E5%90%88/%E9%9B%86%E5%90%88.png">
+<meta name="twitter:image" content="https://lmxxi.github.io/2022/08/19/%E7%BA%BF%E7%A8%8B%E6%B1%A0/%E7%BA%BF%E7%A8%8B%E6%B1%A0%E5%8E%9F%E7%90%86.png">
   
   
   
-  <title>集合 - Lmxxi</title>
+  <title>线程池 - Lmxxi</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -198,7 +198,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="集合"></span>
+            <span id="subtitle" data-typed-text="线程池"></span>
           
         </div>
 
@@ -209,8 +209,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-04-28 21:54" pubdate>
-          2022年4月28日 晚上
+        <time datetime="2022-08-19 19:46" pubdate>
+          2022年8月19日 晚上
         </time>
       </span>
     
@@ -221,7 +221,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          3.5k 字
+          1.3k 字
         
       </span>
     
@@ -232,7 +232,7 @@
         
         
         
-          30 分钟
+          12 分钟
         
       </span>
     
@@ -270,88 +270,63 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">集合</h1>
+            <h1 style="display: none">线程池</h1>
             
             
               <div class="markdown-body">
                 
-                <h2 id="集合"><a href="#集合" class="headerlink" title="集合"></a>集合</h2><img src="/2022/04/28/%E9%9B%86%E5%90%88/%E9%9B%86%E5%90%88.png" srcset="/img/loading.gif" lazyload class="" title="集合框架">  
-
-<h2 id="List"><a href="#List" class="headerlink" title="List"></a>List</h2><h3 id="List有哪些集合类"><a href="#List有哪些集合类" class="headerlink" title="List有哪些集合类"></a>List有哪些集合类</h3><ol>
-<li>ArrayList: Object[]数组</li>
-<li>LinkedList: 双向链表</li>
-<li>vector: Object[]数组，线程安全</li>
-<li>CopyOnWriteArrayList：JUC并发集合，线程安全</li>
-</ol>
-<h3 id="ArrayList和Linkedlist区别"><a href="#ArrayList和Linkedlist区别" class="headerlink" title="ArrayList和Linkedlist区别"></a>ArrayList和Linkedlist区别</h3><ol>
-<li><strong>底层数据结构：</strong> ArrayList底层是<strong>Object数组</strong>，LinkedList底层是<strong>双向链表</strong></li>
-<li><strong>随机访问：</strong> ArrayList支持<strong>随机访问</strong>，LinkedList只能遍历</li>
-<li><strong>插入删除：</strong> ArrayList插入删除受元素位置影响，如果在末尾插入元素，时间复杂度O(1)，如果在中间插入或删除，时间复杂度O(n-i)，因为后续元素要移位；LinkedList在头尾插入或删除时间复杂度都是O(1)，在指定位置插入删除时间复杂度是O(n)，因为要遍历到指定位置</li>
-<li><strong>内存占用：</strong> ArrayList空间浪费体现在会在数组末尾预留一定空间；LinkedList体现在每个元素比ArrayList占据更多空间（维护节点信息）</li>
-</ol>
-<h3 id="ArrayList扩容机制"><a href="#ArrayList扩容机制" class="headerlink" title="ArrayList扩容机制"></a>ArrayList扩容机制</h3><p>每次添加元素时会比较添加后的size和容量capacity的大小，如果超出容量则自动扩容，创建一个新数组，大小为旧数组大小的<strong>大约1.5倍</strong>，将旧数组元素拷贝到新数组中。<br>为减少数组多次扩容带来的性能影响，可以通过<strong>ensureCapacity()方法</strong>手动指定扩容大小，一次扩容完毕，避免多次扩容。<br><mark>（注：以无参构造方法创建ArrayList时，实际分配的是一个空数组，当第一次添加元素时触发扩容，扩容到容量为10）</mark></p>
-<h2 id="Map"><a href="#Map" class="headerlink" title="Map"></a>Map</h2><h3 id="Map有哪些集合类"><a href="#Map有哪些集合类" class="headerlink" title="Map有哪些集合类"></a>Map有哪些集合类</h3><ol>
-<li>HashMap: 1.7 数组+链表，1.8 数组+链表+红黑树</li>
-<li>TreeMap: 红黑树，支持按key排序</li>
-<li>HashTable: 数组+链表，线程安全</li>
-<li>LinkedHashMap: 双向链表+哈希表，实现LRU</li>
-<li>ConcurrentHashMap：JUC并发集合，线程安全</li>
-<li>ConcurrentSkipListMap：JUC并发集合，支持排序，底层是跳表</li>
-</ol>
-<h3 id="HashMap和HashTable的区别"><a href="#HashMap和HashTable的区别" class="headerlink" title="HashMap和HashTable的区别"></a>HashMap和HashTable的区别</h3><ol>
-<li><strong>线程安全：</strong> HashTable是<strong>线程安全</strong>的，HashMap线程不安全</li>
-<li><strong>是否支持NULL数据：</strong> HashTable不支持NULL键和NULL值，HashMap支持，但NULL键最多有一个</li>
-<li><strong>底层结构：</strong> HashTable底层是数组+链表，HashMap是数组+红黑树+链表</li>
-<li><strong>扩容大小：</strong> HashTable容量默认初始大小是<strong>11</strong>，每次扩容大小是<strong>2n+1</strong>，HashMap容量默认初始大小是<strong>16</strong>，每次扩容大小是<strong>2n</strong>。如果指定初始大小，HashTable直接就是指定大小，HashMap会扩容为<strong>离其最近的2的n次幂大小</strong></li>
-</ol>
-<h3 id="HashMap底层结构"><a href="#HashMap底层结构" class="headerlink" title="HashMap底层结构"></a>HashMap底层结构</h3><p><strong>1.7：</strong> 数组+链表，通过<strong>头插法</strong>插入元素。<br><strong>1.8：</strong> 数组+链表+红黑树，通过<strong>尾插法</strong>插入元素，当链表长度大于阈值（默认为8），且当前数组的长度大于64（否则先扩容），就将链表转为红黑树，小于等于6就转回链表</p>
-<h3 id="为什么链表转为红黑树的阈值是8"><a href="#为什么链表转为红黑树的阈值是8" class="headerlink" title="为什么链表转为红黑树的阈值是8"></a>为什么链表转为红黑树的阈值是8</h3><p>转成红黑树是为了提升查询效率，红黑树的查询时间复杂度是O(logn)。但红黑树节点要比Node节点占更多的内存，所以当链表长度比较短的时候，红黑树并不能带来特别大的性能提升，同时还占用了更多内存。<br>同时经过统计，通常情况下，链表长度能达到8的情况是非常少的，这种设置更多是为了防止用户自己实现了比较差的hash算法导致的链表过长。</p>
-<h3 id="HashMap的长度为什么是2的n次幂"><a href="#HashMap的长度为什么是2的n次幂" class="headerlink" title="HashMap的长度为什么是2的n次幂"></a>HashMap的长度为什么是2的n次幂</h3><ol>
-<li>当插入元素时，需要通过 <strong>hash % length</strong> 确定插入位置，如果长度是2的n次方，上述公式等价于 <strong>hash &amp; (length-1)</strong> ，使用&amp;运算更快  </li>
-<li>数据迁移时判断更方便。当长度是2的n次方时，扩容时判断元素是否要迁移到新的桶中，只需要用元素的key的二进制值和旧容量作&amp;运算，然后判断高位是否是0，如果是0则留在当前桶中，否则迁移到新桶，新桶位置为<strong>当前位置+旧容量</strong>。</li>
-</ol>
-<h3 id="HashMap扩容原理"><a href="#HashMap扩容原理" class="headerlink" title="HashMap扩容原理"></a>HashMap扩容原理</h3><p>先通过几个if条件判断特殊情况：  </p>
-<ol>
-<li>如果当前容量大于0，则正常扩容</li>
-<li>判断当前容量是否大于等于最大容量，如果大于，阈值设为Integer.MAX_VALUE</li>
-<li>如果是第一次put，则按构造函数设置初始容量和阈值</li>
-</ol>
-<p>正式扩容：<br>用新的数组大小初始化数组，遍历数组，如果桶中只有一个元素，直接迁移；如果是红黑树，则拆分红黑树；如果是链表，将其拆分成两个链表，通过计算每个元素的 <strong>hash &amp; oldcap</strong>，判断其高位是0或1，分别插入到两个链表中，对于高位是0的元素，留在当前位置，高位是1的元素，迁移至 <strong>pos+oldcap</strong> 位置。</p>
-<h3 id="HashMap为什么不安全"><a href="#HashMap为什么不安全" class="headerlink" title="HashMap为什么不安全"></a>HashMap为什么不安全</h3><p><strong>1.7：</strong> 并发扩容时存在<strong>死循环</strong>问题，并发put存在<strong>数据丢失</strong>问题<br><strong>死循环：</strong>  由于1.7插入使用<strong>头插法</strong>，可能出现线程A设置好当前节点和其next节点后挂起，线程B在这期间完成了迁移工作，此时之前的节点和next节点的位置发生了对调，线程A再以头插法迁移时，就会出现头尾相连，在get()时就会发生死循环。<br><strong>数据丢失：</strong> 1.7中put()方法先创建一个要插入的节点，在其构造函数中指定好next节点。假设线程A创建好节点后挂起，线程B创建新的节点并完成插入，线程A恢复后完成插入，就会覆盖线程B插入的节点，丢失数据。</p>
-<p><strong>1.8：</strong> 并发put存在<strong>数据覆盖</strong>问题<br>1.8通过在数据迁移时构建两个链表并使用尾插法避免了1.7中的死循环问题（即便两个线程同时工作，无非第二个线程重复一遍第一个线程的工作），但仍存在并发put时数据丢失的问题。</p>
-<h3 id="1-8中就不存在死循环了吗"><a href="#1-8中就不存在死循环了吗" class="headerlink" title="1.8中就不存在死循环了吗"></a>1.8中就不存在死循环了吗</h3><p>也会发生死循环。主要发生在<strong>链表转成树或对树进行操作时</strong>。<br>可能原因主要是多线程下操作同一对象时，对象的内部属性出现不一致。</p>
-<h3 id="HashMap有几种遍历方式"><a href="#HashMap有几种遍历方式" class="headerlink" title="HashMap有几种遍历方式"></a>HashMap有几种遍历方式</h3><p>参考链接：<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/zQBN3UvJDhRTKP6SzcZFKw">https://mp.weixin.qq.com/s/zQBN3UvJDhRTKP6SzcZFKw</a></p>
-<h2 id="Set"><a href="#Set" class="headerlink" title="Set"></a>Set</h2><h3 id="Set有哪些集合类"><a href="#Set有哪些集合类" class="headerlink" title="Set有哪些集合类"></a>Set有哪些集合类</h3><ol>
-<li>HashSet: 哈希表（对HashMap的封装）</li>
-<li>LinkedHashSet： 双向链表+哈希表，保证插入有序性</li>
-<li>TreeSet: 红黑树，支持排序</li>
-<li>CopyOnWriteArraySet：JUC并发集合，内部使用CopyOnWriteArrayList</li>
-<li>ConcurrentSkipListSet：JUC并发集合</li>
-</ol>
-<h3 id="HashSet如何检查重复"><a href="#HashSet如何检查重复" class="headerlink" title="HashSet如何检查重复"></a>HashSet如何检查重复</h3><p>先计算hashcode判断加入位置，如果没有重复元素则直接加入，如果有重复元素通过equals()判断是否真的相同，如果相同就拒绝加入。<br><mark>实际HashSet的add()方法只是简单调用了HashMap的put()方法，无论是否存在相同元素都会加入，只是会在add()方法的返回值处返回标记告诉我们插入前是否存在相同元素。</mark></p>
-<h3 id="Comparable-和-Comparator的区别"><a href="#Comparable-和-Comparator的区别" class="headerlink" title="Comparable 和 Comparator的区别"></a>Comparable 和 Comparator的区别</h3><p>Comparable接口一般由对象去实现，重写其中的 <strong>compareTo()</strong> 方法，自定义对象的排序规则。<br>Comparator更接近于一个外部排序器，在集合的sort()中使用，在 <strong>compare()</strong> 方法中定义排序规则。</p>
-<h2 id="Queue"><a href="#Queue" class="headerlink" title="Queue"></a>Queue</h2><h3 id="Queue有哪些集合类"><a href="#Queue有哪些集合类" class="headerlink" title="Queue有哪些集合类"></a>Queue有哪些集合类</h3><ol>
-<li>PriorityQueue: 堆</li>
-<li>LinkedList：实现了Queue和Deque</li>
-<li>ArrayDeque: Deque的实现类，数组+双指针</li>
-<li>ArrayBlockingQueue：JUC并发集合，数组实现的阻塞队列</li>
-<li>LinkedBlockingQueue：JUC并发集合，链表实现的阻塞队列</li>
-<li>ConcurrentLinkedQueue：JUC并发集合，非阻塞队列</li>
-<li>PriorityBlockingQueue：JUC并发集合，PriorityQueue的线程安全版本</li>
-</ol>
-<h3 id="LinkedList和ArrayDeque的区别"><a href="#LinkedList和ArrayDeque的区别" class="headerlink" title="LinkedList和ArrayDeque的区别"></a>LinkedList和ArrayDeque的区别</h3><ol>
-<li>ArrayDeque底层是<strong>数组+双指针</strong>，LinkedList是链表</li>
-<li>ArrayDeque不支持NULL数据，LinkedList支持</li>
-</ol>
-<h3 id="fail-fast机制和fail-safe机制"><a href="#fail-fast机制和fail-safe机制" class="headerlink" title="fail fast机制和fail safe机制"></a>fail fast机制和fail safe机制</h3><p><strong>fail-fast:</strong> 用迭代器遍历一个集合时，如果遍历过程中对集合的结构进行了修改（增加、删除），则抛出并发修改异常。集合中有一个成员遍历modcount表示集合被修改次数，remove()和add()会修改这个值。迭代器有个成员变量expectedmodcount变量，初始值等于modcount，每次执行next()方法都会检查两个变量是否相等。<br>解决方法：</p>
-<ul>
-<li>使用普通for循环+remove(下标)，不用迭代器，跳过检查步骤。</li>
-<li>使用Iterator.remove()，会修改expectedmodcount的值，使其等于modcount。</li>
+                <h3 id="使用线程池的好处"><a href="#使用线程池的好处" class="headerlink" title="使用线程池的好处"></a>使用线程池的好处</h3><ul>
+<li>降低资源消耗：复用已有线程</li>
+<li>提高响应速度：不需要等任务到达再创建线程</li>
+<li>提高线程的可管理性：统一对线程进行分配、监控和管理</li>
 </ul>
-<p><strong>fail-safe:</strong> 并发集合类都是fail-safe。遍历时先复制原有集合内容，在拷贝的集合上遍历。<br>缺点：</p>
+<h2 id="Executor框架"><a href="#Executor框架" class="headerlink" title="Executor框架"></a>Executor框架</h2><p>由三部分组成：</p>
 <ul>
-<li>复制需要额外空间和时间开销</li>
-<li>不能保证遍历最新内容</li>
+<li>任务（Runnable&#x2F;Callable)</li>
+<li>执行器（Executor）</li>
+<li>异步计算的结果（Future）</li>
+</ul>
+<h2 id="ThreadPoolExecutor类"><a href="#ThreadPoolExecutor类" class="headerlink" title="ThreadPoolExecutor类"></a>ThreadPoolExecutor类</h2><h3 id="7个线程池参数"><a href="#7个线程池参数" class="headerlink" title="7个线程池参数"></a>7个线程池参数</h3><ul>
+<li>核心线程数</li>
+<li>工作队列</li>
+<li>最大线程数</li>
+<li>线程存活时间</li>
+<li>存活时间单位</li>
+<li>线程工厂</li>
+<li>拒绝策略</li>
+</ul>
+<h3 id="饱和策略"><a href="#饱和策略" class="headerlink" title="饱和策略"></a>饱和策略</h3><ul>
+<li>直接拒绝任务</li>
+<li>直接拒绝任务并抛出异常</li>
+<li>由当前执行任务的线程执行</li>
+<li>丢弃最早的未处理请求</li>
+</ul>
+<h3 id="线程池原理-x2F-执行流程"><a href="#线程池原理-x2F-执行流程" class="headerlink" title="线程池原理&#x2F;执行流程"></a>线程池原理&#x2F;执行流程</h3><img src="/2022/08/19/%E7%BA%BF%E7%A8%8B%E6%B1%A0/%E7%BA%BF%E7%A8%8B%E6%B1%A0%E5%8E%9F%E7%90%86.png" srcset="/img/loading.gif" lazyload class="" title="线程池原理">
+
+<h3 id="Runnable和Callable区别"><a href="#Runnable和Callable区别" class="headerlink" title="Runnable和Callable区别"></a>Runnable和Callable区别</h3><p>Runnable提交的任务不返回结果，Callable可以返回结果。</p>
+<h3 id="execute-和-submit-区别"><a href="#execute-和-submit-区别" class="headerlink" title="execute() 和 submit() 区别"></a>execute() 和 submit() 区别</h3><ul>
+<li>execute()方法用于提交不需要返回值的任务，所以无法判断任务是否被线程池执行成功与否；</li>
+<li>submit()方法用于提交需要返回值的任务。线程池会返回一个 Future 类型的对象，通过这个 Future 对象可以判断任务是否执行成功，并且可以通过 Future 的 get()方法来获取返回值，get()方法会阻塞当前线程直到任务完成</li>
+</ul>
+<h3 id="shutdown-和shutdownNow-区别"><a href="#shutdown-和shutdownNow-区别" class="headerlink" title="shutdown()和shutdownNow()区别"></a>shutdown()和shutdownNow()区别</h3><ul>
+<li>shutdown（） :关闭线程池，线程池的状态变为 <strong>SHUTDOWN</strong>。线程池不再接受新任务了，但是<strong>队列里的任务得执行完毕。</strong></li>
+<li>shutdownNow（） :关闭线程池，线程的状态变为 <strong>STOP</strong>。线程池会<strong>终止当前正在运行的任务，并停止处理排队的任务</strong>并返回正在等待执行的 List。</li>
+</ul>
+<h3 id="isShutdown-和isTerminated-区别"><a href="#isShutdown-和isTerminated-区别" class="headerlink" title="isShutdown()和isTerminated()区别"></a>isShutdown()和isTerminated()区别</h3><ul>
+<li>isShutDown 当调用 shutdown() 方法后返回为 true。</li>
+<li>isTerminated 当调用 shutdown() 方法后，并且所有提交的任务完成后返回为 true</li>
+</ul>
+<h2 id="常见线程池"><a href="#常见线程池" class="headerlink" title="常见线程池"></a>常见线程池</h2><p>通过Executors类中方法创建的几个线程池（本质都是通过调用ThreadPoolExecutor的构造方法创建）：</p>
+<ul>
+<li>FixedThreadPool：使用<strong>无界队列</strong>，线程数固定，任务过多会导致内存溢出。</li>
+<li>SingleThreadExecutor：使用<strong>无界队列</strong>，只有一个线程，任务过多会导致内存溢出 </li>
+<li>CachedThreadPool：核心线程数设为0，<strong>最大线程数无限</strong>，可能会创建大量线程导致OOM</li>
+</ul>
+<p>ScheduledThreadPoolExecutor：主要用来在给定的延迟后运行任务，或者定期执行任务</p>
+<p>Fork&#x2F;Join:<strong>分治算法</strong>和<strong>工作窃取</strong></p>
+<h3 id="线程池大小确定"><a href="#线程池大小确定" class="headerlink" title="线程池大小确定"></a>线程池大小确定</h3><ul>
+<li><strong>CPU 密集型任务：</strong> 线程数设置为N+1，这种任务消耗的主要是 CPU 资源，可以将线程数设置为 N（CPU 核心数）+1，比 CPU 核心数多出来的一个线程是为了防止线程偶发的缺页中断，或者其它原因导致的任务暂停而带来的影响。一旦任务暂停，CPU 就会处于空闲状态，而在这种情况下多出来的一个线程就可以充分利用 CPU 的空闲时间。</li>
+<li><strong>I&#x2F;O 密集型任务：</strong> 线程数设置为2N，这种任务应用起来，系统会用大部分的时间来处理 I&#x2F;O 交互，而线程在处理 I&#x2F;O 的时间段内不会占用 CPU 来处理，这时就可以将 CPU 交出给其它线程使用。因此在 I&#x2F;O 密集型任务的应用中，我们可以多配置一些线程，具体的计算方法是 2N。</li>
 </ul>
 
                 
@@ -379,6 +354,13 @@
   <a href="/categories/JAVA/%E9%9D%A2%E7%BB%8F/" class="category-chain-item">面经</a>
   
   
+    <span>></span>
+    
+  <a href="/categories/JAVA/%E9%9D%A2%E7%BB%8F/%E5%B9%B6%E5%8F%91/" class="category-chain-item">并发</a>
+  
+  
+
+  
 
   
 
@@ -405,8 +387,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>集合</div>
-      <div>https://lmxxi.github.io/2022/04/28/集合/</div>
+      <div>线程池</div>
+      <div>https://lmxxi.github.io/2022/08/19/线程池/</div>
     </div>
     <div class="license-meta">
       
@@ -418,7 +400,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2022年4月28日</div>
+          <div>2022年8月19日</div>
         </div>
       
       
@@ -448,18 +430,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/04/29/%E5%BC%82%E5%B8%B8/" title="异常">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">异常</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/04/25/%E5%8F%8D%E5%B0%84/" title="反射">
-                        <span class="hidden-mobile">反射</span>
+                      <a href="/2022/08/19/%E5%B9%B6%E5%8F%91%E9%9B%86%E5%90%88%E7%B1%BB/" title="">
+                        <span class="hidden-mobile"></span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
