@@ -24,7 +24,7 @@
 <meta property="og:description" content="为什么需要虚拟机 提供跨平台特性：虚拟机将源代码编译后得到的字节码文件翻译成特定平台下的机器码，然后运行，只要在不同平台安装相应的JVM，就可以实现一次编译到处运行 提供内存管理和垃圾回收的能力 提供诸如数组越界、安全权限等动态检测能力  java代码执行过程编译-&gt;加载-&gt;解释-&gt;执行  编译：将源文件翻译成字节码文件 加载：类加载 解释：当执行一个类的方法时，到方法区中找到对">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-08-19T13:57:00.000Z">
-<meta property="article:modified_time" content="2022-08-20T07:08:57.704Z">
+<meta property="article:modified_time" content="2022-08-21T16:59:23.771Z">
 <meta property="article:author" content="lmxxi">
 <meta property="article:tag" content="面经">
 <meta name="twitter:card" content="summary_large_image">
@@ -219,7 +219,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          3.4k 字
+          3.7k 字
         
       </span>
     
@@ -230,7 +230,7 @@
         
         
         
-          29 分钟
+          31 分钟
         
       </span>
     
@@ -402,7 +402,30 @@
 <li>标记整理</li>
 <li>分代收集：新生代由于每次都有大量对象死去，所以一般选择效率较高的标记复制算法，老年代对无法分出额外空间，所以选择标记清除或标记整理算法。</li>
 </ul>
-<h3 id="垃圾收集器"><a href="#垃圾收集器" class="headerlink" title="垃圾收集器"></a>垃圾收集器</h3><p>Serial:<br>  <strong>新生代采用标记-复制算法，老年代采用标记-整理算法。</strong><br>  回收时只有一个GC线程，且STW<br>ParNew:<br>  新生代采用标记-复制算法，老年代采用标记-整理算法。<br>  Serial的多线程版本<br>Parallel Scavenge：<br>  新生代采用标记-复制算法，老年代采用标记-整理算法。<br>  更关注吞吐量，提供很多参数用来获得最大吞吐量或最合适的停顿时间<br>CMS:</p>
+<h3 id="垃圾收集器"><a href="#垃圾收集器" class="headerlink" title="垃圾收集器"></a>垃圾收集器</h3><ul>
+<li><p>Serial:</p>
+<ul>
+<li><strong>新生代采用标记-复制算法，老年代采用标记-整理算法。</strong></li>
+<li>回收时只有一个GC线程，且STW</li>
+</ul>
+</li>
+<li><p>ParNew:</p>
+<ul>
+<li>新生代采用标记-复制算法，老年代采用标记-整理算法。</li>
+<li>Serial的多线程版本</li>
+</ul>
+</li>
+<li><p>Parallel Scavenge：</p>
+<ul>
+<li>新生代采用标记-复制算法，老年代采用标记-整理算法。</li>
+<li>更关注吞吐量，提供很多参数用来获得最大吞吐量或最合适的停顿时间</li>
+</ul>
+</li>
+<li><p>Serial Old:Serial的老年代版本，作为CMS的后备回收器</p>
+</li>
+<li><p>Parallel Old:ParNew的老年代版本</p>
+</li>
+<li><p>CMS:</p>
 <ul>
 <li>使用标记清除</li>
 <li>回收过程：<ul>
@@ -418,7 +441,8 @@
 </ul>
 </li>
 </ul>
-<p>G1：</p>
+</li>
+<li><p>G1：</p>
 <ul>
 <li>将堆分为一个个region，整体上看基于标记整理，局部上看基于标记复制，支持可预测的停顿，G1 收集器根据每个region回收时间和回收后获得的空间在后台维护了一个优先列表，每次根据允许的收集时间，优先选择回收价值最大的 Region</li>
 <li>回收过程：<ul>
@@ -429,6 +453,10 @@
 </ul>
 </li>
 </ul>
+</li>
+</ul>
+<h3 id="JDK8默认使用的垃圾收集器是什么"><a href="#JDK8默认使用的垃圾收集器是什么" class="headerlink" title="JDK8默认使用的垃圾收集器是什么"></a>JDK8默认使用的垃圾收集器是什么</h3><p>Parallel Scavenge + Parallel Old</p>
+<h3 id="为什么用Serial-Old作为CMS的后备回收器"><a href="#为什么用Serial-Old作为CMS的后备回收器" class="headerlink" title="为什么用Serial Old作为CMS的后备回收器"></a>为什么用Serial Old作为CMS的后备回收器</h3><p>当CMS出现Concurrent Mode Failure错误时，启用Serial Old代替CMS，出现这个错误是由于并发标记过程中产生的新对象大小超过了CMS预留的内存大小，所以采用单线程的Serial Old代替。<br>同时由于cms使用标记清除算法，随着使用次数的增多，内存中会有很多碎片空间无法利用，当达到一定阈值时，会使用serial old，serial old使用标记整理算法，能整合之前产生的碎片空间。</p>
 
                 
               </div>
@@ -447,15 +475,8 @@
     
       <span class="category-chain">
         
-  <a href="/categories/JAVA/" class="category-chain-item">JAVA</a>
+  <a href="/categories/%E9%9D%A2%E7%BB%8F/" class="category-chain-item">面经</a>
   
-  
-    <span>></span>
-    
-  <a href="/categories/JAVA/%E9%9D%A2%E7%BB%8F/" class="category-chain-item">面经</a>
-  
-  
-
   
 
       </span>
@@ -523,6 +544,12 @@
                 <div class="post-prevnext my-3">
                   <article class="post-prev col-6">
                     
+                    
+                      <a href="/2022/08/20/IO/" title="I/O">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">I/O</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
                     
                   </article>
                   <article class="post-next col-6">
