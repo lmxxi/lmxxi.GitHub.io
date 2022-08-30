@@ -24,7 +24,7 @@
 <meta property="og:description" content="Linux软链接和硬链接在 Linux 的文件系统中，保存在磁盘分区中的文件都分配一个编号，称为索引节点号(Inode Index)。硬链接： A 是 B 的硬链接（A 和 B 都是文件名），则 A 的目录项中的 inode 节点号与 B 的目录项中的 inode 节点号相同，即一个 inode 节点对应两个不同的文件名，两个文件名指向同一个文件，A 和 B 对文件系统来说是完全平等的。删除其中任">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-08-13T05:41:44.000Z">
-<meta property="article:modified_time" content="2022-08-20T11:13:01.540Z">
+<meta property="article:modified_time" content="2022-08-28T16:50:54.675Z">
 <meta property="article:author" content="lmxxi">
 <meta property="article:tag" content="JAVA">
 <meta name="twitter:card" content="summary_large_image">
@@ -219,7 +219,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.4k 字
+          1.5k 字
         
       </span>
     
@@ -279,6 +279,9 @@
 <li>netstat -anp | grep pid<br>查看所有端口：netstat -ntlp</li>
 </ul>
 <h3 id="如何查看文件和目录大小"><a href="#如何查看文件和目录大小" class="headerlink" title="如何查看文件和目录大小"></a>如何查看文件和目录大小</h3><p>du -sh</p>
+<h3 id="统计文件中某个单词的出现次数"><a href="#统计文件中某个单词的出现次数" class="headerlink" title="统计文件中某个单词的出现次数"></a>统计文件中某个单词的出现次数</h3><p>cat 文件名 | grep -o 单词 | wc -l</p>
+<h3 id="根据文件里数字排序"><a href="#根据文件里数字排序" class="headerlink" title="根据文件里数字排序"></a>根据文件里数字排序</h3><p>sort -n(按数字排序) -k(指定列数)</p>
+<h3 id="top如何获取信息的"><a href="#top如何获取信息的" class="headerlink" title="top如何获取信息的"></a>top如何获取信息的</h3><p>通过查询&#x2F;proc目录下相关文件获取信息</p>
 <h3 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h3><p>ls: 列出当前目录下文件<br>cd: 切换目录<br>cp: 复制文件到指定目录<br>find: 查找文件<br>mkdir: 创建文件夹<br>mv: 移动文件到指定目录<br>rm: 删除文件或目录<br>cat: 查看文件<br>more: 分页查看文件<br>less: 分页查看文件，可以前后翻页、跳转、查找<br>tail: 显示文件最后几条记录<br>du: 查看磁盘空间使用情况<br>df: 查看文件系统磁盘使用情况<br>top: 实时监控当前系统正在执行的进程的相关信息<br>free: 查看系统内存情况<br>lsof: 用于查看你进程开打的文件，打开文件的进程，进程打开的端口<br>ps aux: 显示所有进程信息<br>ps -ef:显示所有进程信息<br>sed: 替换文件中的字符</p>
 <h3 id="cpu内存占用率很高如何排查"><a href="#cpu内存占用率很高如何排查" class="headerlink" title="cpu内存占用率很高如何排查"></a>cpu内存占用率很高如何排查</h3><ol>
 <li>通过<strong>top</strong>命令查看各个进程使用cpu情况，找到cpu使用率最高的进程  </li>

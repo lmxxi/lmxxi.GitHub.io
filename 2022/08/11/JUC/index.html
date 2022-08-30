@@ -27,7 +27,7 @@
 <meta property="og:image" content="https://lmxxi.github.io/2022/08/11/JUC/shouldparkafterfailedacquire.png">
 <meta property="og:image" content="https://lmxxi.github.io/2022/08/11/JUC/%E8%AF%BB%E5%86%99%E9%94%81.png">
 <meta property="article:published_time" content="2022-08-11T11:07:07.000Z">
-<meta property="article:modified_time" content="2022-08-20T11:12:51.538Z">
+<meta property="article:modified_time" content="2022-08-28T16:50:58.194Z">
 <meta property="article:author" content="lmxxi">
 <meta property="article:tag" content="面经">
 <meta name="twitter:card" content="summary_large_image">
@@ -234,7 +234,7 @@
         
         
         
-          69 分钟
+          70 分钟
         
       </span>
     
@@ -356,6 +356,7 @@
 <li>判断一个节点是否要被阻塞要看前置节点的状态是否为SIGNAL</li>
 </ul>
 <p>所以设置成双向链表会更方便获取到前置节点的状态</p>
+<h3 id="AQS为什么时线程安全的"><a href="#AQS为什么时线程安全的" class="headerlink" title="AQS为什么时线程安全的"></a>AQS为什么时线程安全的</h3><p>基于volatile+CAS实现</p>
 <h2 id="ReentrantLock"><a href="#ReentrantLock" class="headerlink" title="ReentrantLock"></a>ReentrantLock</h2><h3 id="ReentrantLock和Synchronized的区别"><a href="#ReentrantLock和Synchronized的区别" class="headerlink" title="ReentrantLock和Synchronized的区别"></a>ReentrantLock和Synchronized的区别</h3><ul>
 <li>Synchronized是关键字，ReentrantLock是JUC包下的工具类；</li>
 <li>Synchronized只支持非公平锁，ReentranLock支持公平锁和非公平锁；</li>

@@ -24,7 +24,7 @@
 <meta property="og:description" content="依赖注入的方式和区别 属性注入： 优点：简洁 缺点：使用属性注入的类只能在IOC容器中使用，因为该类没有提供该属性的 set方法或者相应的构造方法来完成该属性的初始化，无法脱离IOC容器new一个实例出来。   setter注入 优点：1.相比构造方法更简洁，某些可选属性可以不注入；2.类的属性可以在之后重新配置或注入 缺点：1.导致代码冗余，难以维护；2.依赖可能变化   构造器注入 优点：1.">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-08-21T08:23:48.000Z">
-<meta property="article:modified_time" content="2022-08-22T16:17:50.923Z">
+<meta property="article:modified_time" content="2022-08-28T16:50:49.690Z">
 <meta property="article:author" content="lmxxi">
 <meta property="article:tag" content="面经">
 <meta name="twitter:card" content="summary_large_image">
@@ -219,7 +219,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.4k 字
+          1.5k 字
         
       </span>
     
@@ -290,14 +290,15 @@
 </ul>
 </li>
 </ul>
-<h3 id="如何解决循环依赖"><a href="#如何解决循环依赖" class="headerlink" title="如何解决循环依赖"></a>如何解决循环依赖</h3><p>解决循环依赖有两个前提：</p>
+<h3 id="bean的生命周期"><a href="#bean的生命周期" class="headerlink" title="bean的生命周期"></a>bean的生命周期</h3><h3 id="如何解决循环依赖"><a href="#如何解决循环依赖" class="headerlink" title="如何解决循环依赖"></a>如何解决循环依赖</h3><p>解决循环依赖有两个前提：</p>
 <ul>
 <li><strong>依赖的Bean必须是单例</strong></li>
 <li><strong>依赖注入不能全是构造器注入</strong><br>必须是单例的原因：如果两个Bean都是原型模式的话，创建 A1 需要创建一个 B1，创建 B1 的时候要创建一个 A2，创建 A2 又要创建一个 B2，创建 B2 又要创建一个 A3……因为原型模式都需要创建新的对象，不能跟用以前的对象，所以只能是单例。<br>不能是构造器注入的原因：构造方法在实例化时调用，此时bean还没有实例化完成，三级缓存中还没有Bean（Bean在实例化后放入三级缓存），因此无法获得相应Bean。<br>（注：主bean用字段或Set方法注入，副Bean用构造器方法可以解决循环依赖）</li>
 </ul>
 <p>解决循环依赖依靠三级缓存，<br>一级缓存：存放初始化好的完整bean<br>二级缓存：存放完成实例化，但没有属性注入和初始化的bean<br>三级缓存：存储能建立这个 Bean 的一个工厂，通过工厂能获取这个 Bean，延迟化 Bean 的生成，工厂生成的 Bean 会塞入二级缓存</p>
 <p>首先，获取单例Bean会先检查缓存中是否存在bean对象。如果不存在，则创建bean，将A实例化，并将其放入工厂添加到三级缓存中，然后对A进行属性注入，注入B时重复上述过程，注入A时，直接从三级缓存中获取到工厂中的对象，并放入二级缓存，接着B完成属性注入和初始化，放入一级缓存，然后回到A对象，将一级缓存中的B注入，A完成属性注入和初始化。</p>
-<h3 id="为什么需要三级缓存？二级缓存不行吗？"><a href="#为什么需要三级缓存？二级缓存不行吗？" class="headerlink" title="为什么需要三级缓存？二级缓存不行吗？"></a>为什么需要三级缓存？二级缓存不行吗？</h3><p>三级缓存为了延迟对象暴露，延迟AOP代理对象的生成。<br>当获取依赖的时候，如果依赖的Bean实现了AOP代理，那么我们希望获得的对象是代理对象。<br>当发生循环依赖时，B通过三级缓存中的A的工厂调用getObject()方法，会判断A是否实现了AOP代理，如果是则返回一个代理对象。<br>如果没有三级缓存，无论是否发生循环依赖，那么所有bean都要在实例化后生成代理对象，这与bean的生命周期不符（AOP代理对象正常是在初始化后生成）。而假如使用三级缓存后，只有判断在发生了循环依赖的时候才生成代理对象，否则这个三级缓存中的工厂根本不会被使用。</p>
+<h3 id="为什么需要三级缓存？二级缓存不行吗？"><a href="#为什么需要三级缓存？二级缓存不行吗？" class="headerlink" title="为什么需要三级缓存？二级缓存不行吗？"></a>为什么需要三级缓存？二级缓存不行吗？</h3><p>一级缓存：保证对象是单例<br>二级缓存：存放从三级缓存的工厂中获得的对象<br>三级缓存：存放对象工厂</p>
+<p>三级缓存为了延迟对象暴露，延迟AOP代理对象的生成。<br>当获取依赖的时候，如果依赖的Bean实现了AOP代理，那么我们希望获得的对象是代理对象。<br>当发生循环依赖时，B通过三级缓存中的A的工厂调用getObject()方法，会判断A是否实现了AOP代理，如果是则返回一个代理对象。<br>如果没有三级缓存，无论是否发生循环依赖，那么所有bean都要在实例化后生成代理对象，这与bean的生命周期不符（AOP代理对象正常是在初始化后生成）。而假如使用三级缓存后，只有判断在发生了循环依赖的时候才生成代理对象，否则这个三级缓存中的工厂根本不会被使用。</p>
 <h3 id="没有二级缓存可以吗"><a href="#没有二级缓存可以吗" class="headerlink" title="没有二级缓存可以吗"></a>没有二级缓存可以吗</h3><p>不可以。如果没有二级缓存，每次调用三级缓存工厂对象的getobject()方法，都会产生一个新的对象，破坏了单例模式。</p>
 <h3 id="Spring在创建Bean的时候，在哪里创建的AOP动态代理？"><a href="#Spring在创建Bean的时候，在哪里创建的AOP动态代理？" class="headerlink" title="Spring在创建Bean的时候，在哪里创建的AOP动态代理？"></a>Spring在创建Bean的时候，在哪里创建的AOP动态代理？</h3><p>如果没有循环依赖的话，在bean初始化完成后创建动态代理<br>如果有循环依赖，在bean实例化之后创建</p>
 <h3 id="BeanFactory和ApplicationContext有什么区别"><a href="#BeanFactory和ApplicationContext有什么区别" class="headerlink" title="BeanFactory和ApplicationContext有什么区别"></a>BeanFactory和ApplicationContext有什么区别</h3><h3 id="BeanFactory和FactoryBean的区别"><a href="#BeanFactory和FactoryBean的区别" class="headerlink" title="BeanFactory和FactoryBean的区别"></a>BeanFactory和FactoryBean的区别</h3>
@@ -387,6 +388,12 @@
                 <div class="post-prevnext my-3">
                   <article class="post-prev col-6">
                     
+                    
+                      <a href="/2022/08/25/RabbitMQ/" title="RabbitMQ">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">RabbitMQ</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
                     
                   </article>
                   <article class="post-next col-6">

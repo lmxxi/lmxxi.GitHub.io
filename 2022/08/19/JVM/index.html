@@ -24,7 +24,7 @@
 <meta property="og:description" content="为什么需要虚拟机 提供跨平台特性：虚拟机将源代码编译后得到的字节码文件翻译成特定平台下的机器码，然后运行，只要在不同平台安装相应的JVM，就可以实现一次编译到处运行 提供内存管理和垃圾回收的能力 提供诸如数组越界、安全权限等动态检测能力  java代码执行过程编译-&gt;加载-&gt;解释-&gt;执行  编译：将源文件翻译成字节码文件 加载：类加载 解释：当执行一个类的方法时，到方法区中找到对">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-08-19T13:57:00.000Z">
-<meta property="article:modified_time" content="2022-08-21T16:59:23.771Z">
+<meta property="article:modified_time" content="2022-08-28T16:50:52.023Z">
 <meta property="article:author" content="lmxxi">
 <meta property="article:tag" content="面经">
 <meta name="twitter:card" content="summary_large_image">
@@ -219,7 +219,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          3.7k 字
+          4.5k 字
         
       </span>
     
@@ -230,7 +230,7 @@
         
         
         
-          31 分钟
+          38 分钟
         
       </span>
     
@@ -331,9 +331,18 @@
 </ul>
 </li>
 </ul>
+<h3 id="类加载的顺序"><a href="#类加载的顺序" class="headerlink" title="类加载的顺序"></a>类加载的顺序</h3><ol>
+<li>父类静态字段或静态代码块</li>
+<li>子类静态字段或静态代码块</li>
+<li>父类普通变量及代码块</li>
+<li>父类构造函数</li>
+<li>子类普通变量及代码块</li>
+<li>子类构造方法</li>
+</ol>
+<p>（注：加载一个类时，其内部类不会同时被加载，只有其静态成员或构造方法被调用时加载）</p>
 <h3 id="双亲委派机制"><a href="#双亲委派机制" class="headerlink" title="双亲委派机制"></a>双亲委派机制</h3><p>即在类加载的时候，系统会首先判断当前类是否被加载过。已经被加载的类会直接返回，否则才会尝试加载。加载的时候，首先会把该请求委派给父类加载器的 loadClass() 处理，因此所有的请求最终都应该传送到顶层的启动类加载器 BootstrapClassLoader 中。当父类加载器无法处理时，才由自己来处理。<br>双亲委派模型保证了 Java 程序的稳定运行，可以避免类的重复加载（JVM 区分不同类的方式不仅仅根据类名，相同的类文件被不同的类加载器加载产生的是两个不同的类），也保证了 Java 的核心 API 不被篡改。</p>
 <h3 id="如何打破双亲委派机制"><a href="#如何打破双亲委派机制" class="headerlink" title="如何打破双亲委派机制"></a>如何打破双亲委派机制</h3><p>重写classloader的loadclass()方法</p>
-<h2 id="对象"><a href="#对象" class="headerlink" title="对象"></a>对象</h2><h3 id="对象创建过程"><a href="#对象创建过程" class="headerlink" title="对象创建过程"></a>对象创建过程</h3><ul>
+<h3 id="class文件结构"><a href="#class文件结构" class="headerlink" title="class文件结构"></a>class文件结构</h3><h2 id="对象"><a href="#对象" class="headerlink" title="对象"></a>对象</h2><h3 id="对象创建过程"><a href="#对象创建过程" class="headerlink" title="对象创建过程"></a>对象创建过程</h3><ul>
 <li><p>类加载检查：先检查对应类是否已加载，如果没有则先进行类加载</p>
 </li>
 <li><p>分配内存：为对象分配内存。根据垃圾回收算法选择不同分配策略：</p>
@@ -364,6 +373,13 @@
 <li>实例数据：存放各字段内容</li>
 <li>对齐填充</li>
 </ul>
+<h3 id="对象头占几个字节"><a href="#对象头占几个字节" class="headerlink" title="对象头占几个字节"></a>对象头占几个字节</h3><ul>
+<li>Markword占<strong>8字节</strong>（64位），32位操作系统占4字节</li>
+<li>指针占<strong>8字节</strong>，如果开启<strong>指针压缩</strong>占4字节</li>
+<li>数组长度：<strong>4字节</strong></li>
+</ul>
+<p>对齐填充按8字节的倍数填充，因为64位操作系统内存访问时一次寻址的指针大小是8字节，如果不进行内存对齐，则可能出现跨缓存行的情况，这叫做 <strong>缓存行污染</strong>。例如：如果对象A的和对象B在一个缓存行里，当修改了对象A的字段后，再访问B时，就需要重新将A加载到缓存行中，影响执行效率。</p>
+<h3 id="指针压缩原理"><a href="#指针压缩原理" class="headerlink" title="指针压缩原理"></a>指针压缩原理</h3><p>32位系统可以访问2^32&#x3D;4GB(每一位代表一个字节)地址空间，64位系统理论上可以访问无限空间，但每个引用占8字节，会占据过多堆内存，所以进行指针压缩。<br>由于每个对象大小是8字节的整数倍，所以可以没8个字节作为一个索引。例如对象A、B、C的内存地址分别为0、8、16,就可以映射为0、1、2, 由于是8字节的倍数，所以最后三位一定是0，所以存储时可以将后3位0抹去（转换为bit就是抹去后24位），再将最高位抹去，8字节指针就压缩成了4字节。使用时只要在压缩后的指针后面加3个0，就可以映射回真实地址。<br>完成压缩后，指针的32bit中每个bit都代表8字节，所以最大可以表示 在32位的基础上 2^32*8&#x3D;32GB内存。</p>
 <h3 id="对象的访问定位"><a href="#对象的访问定位" class="headerlink" title="对象的访问定位"></a>对象的访问定位</h3><ul>
 <li>句柄：堆中划分出一块区域存放句柄池，引用中存的是句柄地址，句柄池中存放指向对象实例数据的指针和指向对象类型数据的指针</li>
 <li>直接指针：引用直接指向对象，java对象中存放实例数据和指向类型数据的指针</li>
@@ -377,6 +393,8 @@
 <li><strong>动态年龄判定</strong>：如果survivor区中某个年龄的对象大小超过总大小的一半，则晋升至老年代，并将该年龄和当前晋升年龄阈值中的最小值设为新的阈值。</li>
 <li><strong>空间分配担保</strong>：发生Minor GC之前，先检查老年代最大连续可用空间是否大于新生代所有对象空间，如果成立，则进行Minor GC。如果不成立，检查是否允许空间担保失败，如果允许，检查老年代空间是否大于历次晋升对象的平均大小，如果大于进行Minor GC，否则进行Full GC。</li>
 </ul>
+<h3 id="为什么要分代"><a href="#为什么要分代" class="headerlink" title="为什么要分代"></a>为什么要分代</h3><p>提升内存回收效率。如果都放在一起，每次垃圾回收都要扫描整个堆。</p>
+<h3 id="为什么需要两个survivor区"><a href="#为什么需要两个survivor区" class="headerlink" title="为什么需要两个survivor区"></a>为什么需要两个survivor区</h3><p>如果没有survivor区，每次eden区回收后存活的对象都直接进入老年代，老年代内存很快会被用完。<br>设置两个survivor区是因为可以使用标记复制算法，因为新生代对象回收频繁，如果使用标记清除会产生较多内存碎片，使用标记整理的效率又不高，所以分成两个survivor使用标记复制算法。</p>
 <h3 id="Full-GC触发条件"><a href="#Full-GC触发条件" class="headerlink" title="Full GC触发条件"></a>Full GC触发条件</h3><p>调用System.gc() 建议虚拟机执行Full GC<br>老年代空间不足<br>空间分配担保失败<br>1.7之前永久代空间不足<br>CMS产生Concurrent Node Failure</p>
 <h3 id="如何判断对象已经死亡"><a href="#如何判断对象已经死亡" class="headerlink" title="如何判断对象已经死亡"></a>如何判断对象已经死亡</h3><ul>
 <li>引用计数法：存在对象<strong>互相引用</strong>问题</li>
@@ -421,15 +439,21 @@
 <li>更关注吞吐量，提供很多参数用来获得最大吞吐量或最合适的停顿时间</li>
 </ul>
 </li>
-<li><p>Serial Old:Serial的老年代版本，作为CMS的后备回收器</p>
+<li><p>Serial Old:</p>
+<ul>
+<li>Serial的老年代版本，作为CMS的后备回收器</li>
+</ul>
 </li>
-<li><p>Parallel Old:ParNew的老年代版本</p>
+<li><p>Parallel Old:</p>
+<ul>
+<li>ParNew的老年代版本</li>
+</ul>
 </li>
 <li><p>CMS:</p>
 <ul>
 <li>使用标记清除</li>
 <li>回收过程：<ul>
-<li>初始标记：STW</li>
+<li>初始标记：STW，标记与GC ROOT直接相连的对象。</li>
 <li>并发标记</li>
 <li>重新标记：STW，标记并发标记阶段由不可达变为可达的对象</li>
 <li>并发清除</li>

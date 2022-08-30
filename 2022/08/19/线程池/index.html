@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://lmxxi.github.io/2022/08/19/%E7%BA%BF%E7%A8%8B%E6%B1%A0/%E7%BA%BF%E7%A8%8B%E6%B1%A0%E5%8E%9F%E7%90%86.png">
 <meta property="article:published_time" content="2022-08-19T11:46:25.000Z">
-<meta property="article:modified_time" content="2022-08-20T11:12:28.543Z">
+<meta property="article:modified_time" content="2022-08-24T15:53:24.759Z">
 <meta property="article:author" content="lmxxi">
 <meta property="article:tag" content="面经">
 <meta name="twitter:card" content="summary_large_image">
@@ -221,7 +221,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.3k 字
+          1.5k 字
         
       </span>
     
@@ -232,7 +232,7 @@
         
         
         
-          12 分钟
+          13 分钟
         
       </span>
     
@@ -303,6 +303,7 @@
 </ul>
 <h3 id="线程池原理-x2F-执行流程"><a href="#线程池原理-x2F-执行流程" class="headerlink" title="线程池原理&#x2F;执行流程"></a>线程池原理&#x2F;执行流程</h3><img src="/2022/08/19/%E7%BA%BF%E7%A8%8B%E6%B1%A0/%E7%BA%BF%E7%A8%8B%E6%B1%A0%E5%8E%9F%E7%90%86.png" srcset="/img/loading.gif" lazyload class="" title="线程池原理">
 
+<h3 id="keepalive原理"><a href="#keepalive原理" class="headerlink" title="keepalive原理"></a>keepalive原理</h3><p>线程获取任务时，先判断是否设置了timed，如果设置了则通过阻塞队列的poll()方法获取任务，否则通过take()方法，poll()方法可以设置超时时间，当超过keepalive时间还没获得到任务的话，会设置timeout属性为true并返回null，在runWorker()方法中，判断到getTask()方法返回Null，则结束线程。</p>
 <h3 id="Runnable和Callable区别"><a href="#Runnable和Callable区别" class="headerlink" title="Runnable和Callable区别"></a>Runnable和Callable区别</h3><p>Runnable提交的任务不返回结果，Callable可以返回结果。</p>
 <h3 id="execute-和-submit-区别"><a href="#execute-和-submit-区别" class="headerlink" title="execute() 和 submit() 区别"></a>execute() 和 submit() 区别</h3><ul>
 <li>execute()方法用于提交不需要返回值的任务，所以无法判断任务是否被线程池执行成功与否；</li>

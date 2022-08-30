@@ -16,15 +16,15 @@
   <meta name="author" content="lmxxi">
   <meta name="keywords" content="">
   
-    <meta name="description" content="语法基础基本数据类型整数型：byte（1字节）、short（2字节）、int（4字节）、long（8字节）浮点数：float（4字节）、double（8字节）字符型：char（2字节）布尔型：boolean（1字节）（注：使用long要在数字后面加上后缀L，否则当作int处理）   基本类型和包装类区别 成员变量包装类不赋值默认是null，基本类型不赋值默认是0   包装类可以用作泛型，基本类型不">
+    <meta name="description" content="语法基础基本数据类型整数型：byte（1字节）、short（2字节）、int（4字节）、long（8字节）浮点数：float（4字节）、double（8字节）字符型：char（2字节）布尔型：boolean（1字节）（注：使用long要在数字后面加上后缀L，否则当作int处理）   引用变量占几个字节32位系统占4字节，64位系统占8字节 基本类型和包装类区别 成员变量包装类不赋值默认是null，">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java基础">
 <meta property="og:url" content="https://lmxxi.github.io/2022/04/23/Java%E5%9F%BA%E7%A1%80/index.html">
 <meta property="og:site_name" content="Lmxxi">
-<meta property="og:description" content="语法基础基本数据类型整数型：byte（1字节）、short（2字节）、int（4字节）、long（8字节）浮点数：float（4字节）、double（8字节）字符型：char（2字节）布尔型：boolean（1字节）（注：使用long要在数字后面加上后缀L，否则当作int处理）   基本类型和包装类区别 成员变量包装类不赋值默认是null，基本类型不赋值默认是0   包装类可以用作泛型，基本类型不">
+<meta property="og:description" content="语法基础基本数据类型整数型：byte（1字节）、short（2字节）、int（4字节）、long（8字节）浮点数：float（4字节）、double（8字节）字符型：char（2字节）布尔型：boolean（1字节）（注：使用long要在数字后面加上后缀L，否则当作int处理）   引用变量占几个字节32位系统占4字节，64位系统占8字节 基本类型和包装类区别 成员变量包装类不赋值默认是null，">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-04-22T16:00:00.000Z">
-<meta property="article:modified_time" content="2022-08-20T11:12:43.279Z">
+<meta property="article:modified_time" content="2022-08-24T15:53:20.814Z">
 <meta property="article:author" content="lmxxi">
 <meta property="article:tag" content="面经">
 <meta name="twitter:card" content="summary_large_image">
@@ -219,7 +219,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          3.2k 字
+          3.3k 字
         
       </span>
     
@@ -230,7 +230,7 @@
         
         
         
-          27 分钟
+          28 分钟
         
       </span>
     
@@ -274,6 +274,7 @@
               <div class="markdown-body">
                 
                 <h2 id="语法基础"><a href="#语法基础" class="headerlink" title="语法基础"></a>语法基础</h2><h3 id="基本数据类型"><a href="#基本数据类型" class="headerlink" title="基本数据类型"></a>基本数据类型</h3><p>整数型：byte（1字节）、short（2字节）、int（4字节）、long（8字节）<br>浮点数：float（4字节）、double（8字节）<br>字符型：char（2字节）<br>布尔型：boolean（1字节）<br><mark>（注：使用long要在数字后面加上后缀L，否则当作int处理）</mark>  </p>
+<h3 id="引用变量占几个字节"><a href="#引用变量占几个字节" class="headerlink" title="引用变量占几个字节"></a>引用变量占几个字节</h3><p>32位系统占4字节，64位系统占8字节</p>
 <h3 id="基本类型和包装类区别"><a href="#基本类型和包装类区别" class="headerlink" title="基本类型和包装类区别"></a>基本类型和包装类区别</h3><ol>
 <li><strong>成员变量</strong>包装类不赋值默认是null，基本类型不赋值默认是0  </li>
 <li>包装类可以用作泛型，基本类型不可以  </li>
@@ -316,6 +317,13 @@
 <p><mark>a+b操作会将a和b提升到int，所以将int类型赋值给byte就会报错</mark></p>
 <h3 id="char变量能不能存汉字"><a href="#char变量能不能存汉字" class="headerlink" title="char变量能不能存汉字"></a>char变量能不能存汉字</h3><p>可以。Java中char采用Unicode编码集，占2个字节，一个汉字也是2字节，所以可以存储。</p>
 <h3 id="静态方法和静态属性可以被继承和重写吗"><a href="#静态方法和静态属性可以被继承和重写吗" class="headerlink" title="静态方法和静态属性可以被继承和重写吗"></a>静态方法和静态属性可以被继承和重写吗</h3><p>可以被继承。在子类中会被 <strong>“隐藏”</strong>。<br>static方法不能被重写，即便写法上是重写，但是并不具备<strong>多态</strong>的含义。static方法是属于类的，不属于任何对象，即便具体对象所声明的引用对象调用了static方法，实际执行的也是<strong>引用对象类型对应的类里的方法</strong>。<br>因为多态是通过父类引用指向子类对象，调用重写方法时子类方法有更高的优先级，所以调用子类方法，但隐藏方法和属性不参与比较。</p>
+<h3 id="Java为什么不支持多继承？如何实现多继承？"><a href="#Java为什么不支持多继承？如何实现多继承？" class="headerlink" title="Java为什么不支持多继承？如何实现多继承？"></a>Java为什么不支持多继承？如何实现多继承？</h3><p>防止一个类继承多个同名方法，无法识别。</p>
+<p>实现多继承：</p>
+<ul>
+<li>多层继承；</li>
+<li>内部类；</li>
+<li>接口；</li>
+</ul>
 
                 
               </div>

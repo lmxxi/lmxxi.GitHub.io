@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://lmxxi.github.io/2022/05/11/%E5%B9%B6%E5%8F%91%E5%9F%BA%E7%A1%80/%E7%BA%BF%E7%A8%8B%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F.png">
 <meta property="article:published_time" content="2022-05-11T08:39:40.000Z">
-<meta property="article:modified_time" content="2022-08-22T06:31:44.340Z">
+<meta property="article:modified_time" content="2022-08-28T16:50:56.437Z">
 <meta property="article:author" content="lmxxi">
 <meta property="article:tag" content="面经">
 <meta name="twitter:card" content="summary_large_image">
@@ -333,7 +333,7 @@
 <li>轻量级锁：使用CAS获取锁，没获取到锁的线程自旋等待，如果自旋次数超过阈值，则升级为重量级锁。在<strong>栈</strong>里加入一个<strong>锁记录</strong>，存放之前的对象头中的Markword内容，并将对象头中的Markword替换为<strong>指向栈中锁记录的指针</strong>。</li>
 <li>重量级锁： 竞争锁失败直接进入阻塞状态。对象头中存放指向锁监视器的指针。</li>
 </ol>
-<h2 id="volatile"><a href="#volatile" class="headerlink" title="volatile"></a>volatile</h2><h3 id="volatile作用"><a href="#volatile作用" class="headerlink" title="volatile作用"></a>volatile作用</h3><ol>
+<h3 id="Synchronized实现可重入的原理"><a href="#Synchronized实现可重入的原理" class="headerlink" title="Synchronized实现可重入的原理"></a>Synchronized实现可重入的原理</h3><h2 id="volatile"><a href="#volatile" class="headerlink" title="volatile"></a>volatile</h2><h3 id="volatile作用"><a href="#volatile作用" class="headerlink" title="volatile作用"></a>volatile作用</h3><ol>
 <li>防止指令重排序，保证<strong>有序性</strong>  </li>
 <li>保证变量<strong>可见性</strong></li>
 </ol>
