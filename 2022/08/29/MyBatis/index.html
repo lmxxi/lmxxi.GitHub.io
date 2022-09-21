@@ -24,7 +24,7 @@
 <meta property="og:description" content="JPA和MyBatis区别JPA面向对象，简单的CURD可以直接通过封装好的方法实现，自定义查询可已通过@query注解编写SQL语句。缺点是阅读性较差。MyBatis对SQL的编写非常灵活，可以完全自由控制。MyBatis的SQL语句写在XML中，与代码进行了分离，阅读非常直观，且修改SQL语句也不需要直接修改JAVA代码。 #{}和${}区别#{}属于动态替换，#{}会被替换成?，之后替换为传">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-08-28T16:09:23.000Z">
-<meta property="article:modified_time" content="2022-08-29T06:43:41.220Z">
+<meta property="article:modified_time" content="2022-09-15T15:44:21.607Z">
 <meta property="article:author" content="lmxxi">
 <meta property="article:tag" content="面经">
 <meta name="twitter:card" content="summary_large_image">
@@ -219,7 +219,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          632 字
+          730 字
         
       </span>
     
@@ -230,7 +230,7 @@
         
         
         
-          6 分钟
+          7 分钟
         
       </span>
     
@@ -275,10 +275,14 @@
                 
                 <h3 id="JPA和MyBatis区别"><a href="#JPA和MyBatis区别" class="headerlink" title="JPA和MyBatis区别"></a>JPA和MyBatis区别</h3><p>JPA面向对象，简单的CURD可以直接通过封装好的方法实现，自定义查询可已通过@query注解编写SQL语句。缺点是阅读性较差。<br>MyBatis对SQL的编写非常灵活，可以完全自由控制。MyBatis的SQL语句写在XML中，与代码进行了分离，阅读非常直观，且修改SQL语句也不需要直接修改JAVA代码。</p>
 <h3 id="和-区别"><a href="#和-区别" class="headerlink" title="#{}和${}区别"></a>#{}和${}区别</h3><p>#{}属于动态替换，#{}会被替换成?，之后替换为传入的参数。<br>$ 属于静态文本替换，直接替换为参数的字符串。<br>#可以防止sql注入，而${}不可以。<br>对于表名、group by、order by等必须用 $ 修饰，因为#{}会自动为传入的参数加上引号。</p>
+<h3 id="mybatis如何避免sql注入"><a href="#mybatis如何避免sql注入" class="headerlink" title="mybatis如何避免sql注入"></a>mybatis如何避免sql注入</h3><p>通过使用#{}避免。 被#{}修饰的字段会在预编译阶段用占位符？替换，执行时直接使用编译好的SQL替换掉占位符即可。<br>而使用${}不能防止sql注入，因为 ${}修饰的指端会直接参与编译。</p>
 <h3 id="mybatis的模糊查询"><a href="#mybatis的模糊查询" class="headerlink" title="mybatis的模糊查询"></a>mybatis的模糊查询</h3><ol>
-<li>&#96;&#96;&#96; sql<br>SELECT * FROM user WHERE name LIKE #{name} <figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">    在传入数据上修改，例如：传入<span class="hljs-type">name</span>=&quot;%xxx%&quot;<br><span class="hljs-number">2.</span> 方式一需要手动添加%，不方便<br>   ``` <span class="hljs-keyword">sql</span><br>   <span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> <span class="hljs-keyword">user</span> <span class="hljs-keyword">WHERE</span> <span class="hljs-type">name</span> <span class="hljs-keyword">LIKE</span> <span class="hljs-string">&#x27;%$&#123;name&#125;%&#x27;</span><br></code></pre></td></tr></table></figure>
-在sql语句中提前写好%，将#替换成$，因为#{}不能在字符串中。</li>
-<li>方式二存在sql注入问题<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">Select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span> <span class="hljs-keyword">table</span> <span class="hljs-keyword">where</span> name <span class="hljs-keyword">like</span> concat(<span class="hljs-string">&#x27;%&#x27;</span>,#&#123;name&#125;,<span class="hljs-string">&#x27;%&#x27;</span>)<br></code></pre></td></tr></table></figure>
+<li><pre><code class="hljs">SELECT * FROM user WHERE name LIKE #&#123;name&#125;
+ <figure class="highlight abnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs abnf">    在传入数据上修改，例如：传入name<span class="hljs-operator">=</span><span class="hljs-string">&quot;%xxx%&quot;</span><br><span class="hljs-number">2</span>. 方式一需要手动添加%，不方便<br></code></pre></td></tr></table></figure>
+SELECT * FROM user WHERE name LIKE &#39;%$&#123;name&#125;%&#39;
+<figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs clean">   在sql语句中提前写好%，将#替换成$，因为#&#123;&#125;不能在字符串中。<br><span class="hljs-number">3.</span> 方式二存在sql注入问题<br></code></pre></td></tr></table></figure>
+Select * from table where name like concat(&#39;%&#39;,#&#123;name&#125;,&#39;%&#39;)
+</code></pre>
  利用concat连接，既解决sql注入又不用自己写%</li>
 </ol>
 

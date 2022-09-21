@@ -24,7 +24,7 @@
 <meta property="og:description" content="依赖注入的方式和区别 属性注入： 优点：简洁 缺点：使用属性注入的类只能在IOC容器中使用，因为该类没有提供该属性的 set方法或者相应的构造方法来完成该属性的初始化，无法脱离IOC容器new一个实例出来。   setter注入 优点：1.相比构造方法更简洁，某些可选属性可以不注入；2.类的属性可以在之后重新配置或注入 缺点：1.导致代码冗余，难以维护；2.依赖可能变化   构造器注入 优点：1.">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-08-21T08:23:48.000Z">
-<meta property="article:modified_time" content="2022-08-28T16:50:49.690Z">
+<meta property="article:modified_time" content="2022-09-18T17:07:11.343Z">
 <meta property="article:author" content="lmxxi">
 <meta property="article:tag" content="面经">
 <meta name="twitter:card" content="summary_large_image">
@@ -219,7 +219,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.5k 字
+          2.3k 字
         
       </span>
     
@@ -230,7 +230,7 @@
         
         
         
-          13 分钟
+          19 分钟
         
       </span>
     
@@ -301,7 +301,21 @@
 <p>三级缓存为了延迟对象暴露，延迟AOP代理对象的生成。<br>当获取依赖的时候，如果依赖的Bean实现了AOP代理，那么我们希望获得的对象是代理对象。<br>当发生循环依赖时，B通过三级缓存中的A的工厂调用getObject()方法，会判断A是否实现了AOP代理，如果是则返回一个代理对象。<br>如果没有三级缓存，无论是否发生循环依赖，那么所有bean都要在实例化后生成代理对象，这与bean的生命周期不符（AOP代理对象正常是在初始化后生成）。而假如使用三级缓存后，只有判断在发生了循环依赖的时候才生成代理对象，否则这个三级缓存中的工厂根本不会被使用。</p>
 <h3 id="没有二级缓存可以吗"><a href="#没有二级缓存可以吗" class="headerlink" title="没有二级缓存可以吗"></a>没有二级缓存可以吗</h3><p>不可以。如果没有二级缓存，每次调用三级缓存工厂对象的getobject()方法，都会产生一个新的对象，破坏了单例模式。</p>
 <h3 id="Spring在创建Bean的时候，在哪里创建的AOP动态代理？"><a href="#Spring在创建Bean的时候，在哪里创建的AOP动态代理？" class="headerlink" title="Spring在创建Bean的时候，在哪里创建的AOP动态代理？"></a>Spring在创建Bean的时候，在哪里创建的AOP动态代理？</h3><p>如果没有循环依赖的话，在bean初始化完成后创建动态代理<br>如果有循环依赖，在bean实例化之后创建</p>
-<h3 id="BeanFactory和ApplicationContext有什么区别"><a href="#BeanFactory和ApplicationContext有什么区别" class="headerlink" title="BeanFactory和ApplicationContext有什么区别"></a>BeanFactory和ApplicationContext有什么区别</h3><h3 id="BeanFactory和FactoryBean的区别"><a href="#BeanFactory和FactoryBean的区别" class="headerlink" title="BeanFactory和FactoryBean的区别"></a>BeanFactory和FactoryBean的区别</h3>
+<h3 id="BeanFactory和ApplicationContext有什么区别"><a href="#BeanFactory和ApplicationContext有什么区别" class="headerlink" title="BeanFactory和ApplicationContext有什么区别"></a>BeanFactory和ApplicationContext有什么区别</h3><h3 id="BeanFactory和FactoryBean的区别"><a href="#BeanFactory和FactoryBean的区别" class="headerlink" title="BeanFactory和FactoryBean的区别"></a>BeanFactory和FactoryBean的区别</h3><h3 id="Springboot如何对异常统一处理"><a href="#Springboot如何对异常统一处理" class="headerlink" title="Springboot如何对异常统一处理"></a>Springboot如何对异常统一处理</h3><p>使用@ControllerAdvice 即可开启全局异常处理，使用该注解表示开启了全局异常的捕获，我们只需在自定义一个方法使用@ExceptionHandler注解然后定义捕获异常的类型即可对这些捕获的异常进行统一的处理。</p>
+<h3 id="Spring配置文件的优先级"><a href="#Spring配置文件的优先级" class="headerlink" title="Spring配置文件的优先级"></a>Spring配置文件的优先级</h3><ol>
+<li>当前项目的根目录&#x2F;config&#x2F;            </li>
+<li>当前项目的根目录&#x2F;</li>
+<li>类路径(在resources目录下)&#x2F;config&#x2F;   </li>
+<li>类路径(在resources目录下)&#x2F;</li>
+</ol>
+<p>spring boot项目中同一个目录下同时存在application.properties和application.yml文件时，两个文件都有效，但是yml文件会先加载，而后加载的properties文件会覆盖yml文件。</p>
+<h3 id="如何切换多环境配置文件"><a href="#如何切换多环境配置文件" class="headerlink" title="如何切换多环境配置文件"></a>如何切换多环境配置文件</h3><p>通过application-xxx.properties设置不同环境的配置文件，在默认的application.properties中，通过spring-properties-active:xxx选择要执行的配置文件。</p>
+<h3 id="SpringMVC是怎么根据url找到controller的"><a href="#SpringMVC是怎么根据url找到controller的" class="headerlink" title="SpringMVC是怎么根据url找到controller的"></a>SpringMVC是怎么根据url找到controller的</h3><h3 id="IOC容器初始化流程"><a href="#IOC容器初始化流程" class="headerlink" title="IOC容器初始化流程"></a>IOC容器初始化流程</h3><ol>
+<li>BeanDefinition的Resourse定位：找到相关Bean的定义文件，如果是xml形式则找到Bean的定义xml文件，如果是注解方式则扫描对应的类</li>
+<li>BeanDefinition的载入过程：将用户定义的Bean表示成IOC容器的内部数据结构，即BeanDefinition,存放Bean的各种属性，如懒加载，作用域等</li>
+<li>第三个过程是向IOC容器注册这些BeanDefinition的过程，这个过程就是将前面的BeanDefition保存到ConcurrentHashMap中的过程，key为Bean的name</li>
+</ol>
+
                 
               </div>
             

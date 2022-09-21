@@ -24,7 +24,7 @@
 <meta property="og:description" content="语法基础基本数据类型整数型：byte（1字节）、short（2字节）、int（4字节）、long（8字节）浮点数：float（4字节）、double（8字节）字符型：char（2字节）布尔型：boolean（1字节）（注：使用long要在数字后面加上后缀L，否则当作int处理）   引用变量占几个字节32位系统占4字节，64位系统占8字节 基本类型和包装类区别 成员变量包装类不赋值默认是null，">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-04-22T16:00:00.000Z">
-<meta property="article:modified_time" content="2022-08-24T15:53:20.814Z">
+<meta property="article:modified_time" content="2022-09-12T15:45:23.370Z">
 <meta property="article:author" content="lmxxi">
 <meta property="article:tag" content="面经">
 <meta name="twitter:card" content="summary_large_image">
@@ -219,7 +219,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          3.3k 字
+          3.4k 字
         
       </span>
     
@@ -230,7 +230,7 @@
         
         
         
-          28 分钟
+          29 分钟
         
       </span>
     
@@ -310,6 +310,11 @@
 <h3 id="String如何实现不可变"><a href="#String如何实现不可变" class="headerlink" title="String如何实现不可变"></a>String如何实现不可变</h3><ol>
 <li>保存字符串的数组用<strong>private</strong>和<strong>final</strong>修饰，并且没有提供修改字符数组的方法  </li>
 <li>String类用<strong>final</strong>修饰，不可继承，避免了子类破坏不可变性</li>
+</ol>
+<h3 id="String为什么设置为不可变"><a href="#String为什么设置为不可变" class="headerlink" title="String为什么设置为不可变"></a>String为什么设置为不可变</h3><ol>
+<li>可以缓存hash值。只需要计算一次hash值，不需要重新计算。</li>
+<li>可以实现字符串常量池。</li>
+<li>天生线程安全。</li>
 </ol>
 <h3 id="字符串拼接用’-’的原理"><a href="#字符串拼接用’-’的原理" class="headerlink" title="字符串拼接用’+’的原理"></a>字符串拼接用’+’的原理</h3><p>字符串对象通过“+”的字符串拼接方式，实际上是通过 <strong>StringBuilder</strong> 调用 <strong>append()</strong> 方法实现的，拼接完成之后调用 <strong>toString()</strong> 得到一个 String 对象。<br>对于编译期可以确定值的字符串，也就是常量字符串 ，jvm 会将其存入字符串常量池。并且，字符串常量拼接得到的字符串常量在编译阶段就已经被存放字符串常量池，这个得益于编译器的优化。<br>对于 String str3 &#x3D; “str” + “ing”; 编译器会给你优化成 String str3 &#x3D; “string”; 称为<strong>常量折叠</strong>。</p>
 <h3 id="a-x3D-a-b-和-a-x3D-b有什么区别"><a href="#a-x3D-a-b-和-a-x3D-b有什么区别" class="headerlink" title="a&#x3D;a+b 和 a+&#x3D;b有什么区别"></a>a&#x3D;a+b 和 a+&#x3D;b有什么区别</h3><p>+&#x3D;会隐式的将计算结果转换为持有结果的类型。<br>在使用byte、short、int相加的时候，首先会将数据提升到int类型，然后再计算。</p>

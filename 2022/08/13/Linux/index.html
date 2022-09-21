@@ -24,7 +24,7 @@
 <meta property="og:description" content="Linux软链接和硬链接在 Linux 的文件系统中，保存在磁盘分区中的文件都分配一个编号，称为索引节点号(Inode Index)。硬链接： A 是 B 的硬链接（A 和 B 都是文件名），则 A 的目录项中的 inode 节点号与 B 的目录项中的 inode 节点号相同，即一个 inode 节点对应两个不同的文件名，两个文件名指向同一个文件，A 和 B 对文件系统来说是完全平等的。删除其中任">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-08-13T05:41:44.000Z">
-<meta property="article:modified_time" content="2022-08-28T16:50:54.675Z">
+<meta property="article:modified_time" content="2022-09-15T15:44:19.928Z">
 <meta property="article:author" content="lmxxi">
 <meta property="article:tag" content="JAVA">
 <meta name="twitter:card" content="summary_large_image">
@@ -219,7 +219,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.5k 字
+          1.6k 字
         
       </span>
     
@@ -295,7 +295,7 @@
 <li>如果发现gc非常频繁，通过<strong>jmap</strong>命令查询进程实体类内存占用情况，检查哪个类的创建了过多的实体对象及内存泄漏情况</li>
 <li>如果没有上述问题，通过<strong>jmap -heap</strong>查看堆的各个分代的使用情况，如果发生频繁gc是因为堆的分代大小设置有问题，可以修改各个分代大小</li>
 </ol>
-
+<h3 id="full-gc频繁如何排查"><a href="#full-gc频繁如何排查" class="headerlink" title="full gc频繁如何排查"></a>full gc频繁如何排查</h3>
                 
               </div>
             
